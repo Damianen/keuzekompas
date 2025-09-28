@@ -7,15 +7,19 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
+COPY pnpm-lock.yaml* ./
 
-# Install dependencies
-RUN npm ci --only=production && npm cache clean --force
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Install dependencies (including devDependencies for build)
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN pnpm run build
 
 # Stage 2: Serve the application with nginx
 FROM nginx:alpine

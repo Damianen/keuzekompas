@@ -59,15 +59,11 @@ README.md
 docs/
 *.md
 
-# Config files
+# Config files (keep build-essential configs)
 .editorconfig
 .eslintrc*
 .prettierrc*
 eslint.config.js
-vite.config.ts
-tsconfig*.json
-tailwind.config.js
-postcss.config.js
 
 # Public assets that shouldn't be copied (they're included in the build)
 public/vite.svg
