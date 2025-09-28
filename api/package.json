@@ -3,15 +3,22 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc && tsc-alias",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",
-    "hono": "^4.9.9"
+    "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.2",
+    "hono": "^4.9.9",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.2"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "tsc-alias": "^1.8.16",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
   }

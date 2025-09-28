@@ -1,8 +1,8 @@
-import type { User } from "../../domain/entities/User.js";
-import type { IUserRepo } from "../../domain/repos/user.repo.js";
-import { NotFoundError, ValidationError } from "../../shared/error.js";
-import { err, ok, type Result } from "../../shared/result.js";
-import type { IPasswordHasher } from "../ports/passwordhasher.port.js";
+import type { User } from "@domain/entities/User.js";
+import type { IUserRepo } from "@domain/repos/user.repo.js";
+import { NotFoundError, ValidationError } from "@shared/error.js";
+import { err, ok, type Result } from "@shared/result.js";
+import type { IPasswordHasher } from "../../../domain/services/IPasswordHasher.js";
 
 export class LoginUser {
     constructor(private repo: IUserRepo, private passwordHasher: IPasswordHasher) { }

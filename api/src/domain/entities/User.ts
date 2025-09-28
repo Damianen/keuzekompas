@@ -1,4 +1,4 @@
-import Module from "module";
+import type { Module } from "./Module.js";
 
 export type User = {
     id?: string;
