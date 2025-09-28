@@ -21,32 +21,7 @@ COPY . .
 # Build the application
 RUN pnpm run build
 
-# Stage 2: Serve the application with nginx
-FROM nginx:alpine
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Copy built application from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Copy nginx configuration if you have one
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# Create nginx configuration for React Router
-RUN echo 'server { \
-    listen 80; \
-    location / { \
-        root /usr/share/nginx/html; \
-        index index.html index.htm; \
-        try_files $uri $uri/ /index.html; \
-    } \
-    # Enable gzip compression \
-    gzip on; \
-    gzip_vary on; \
-    gzip_min_length 1024; \
-    gzip_types text/plain text/css text/xml text/javascript application/javascript application/json; \
-}' > /etc/nginx/conf.d/default.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["pnpm", "run", "start"]
