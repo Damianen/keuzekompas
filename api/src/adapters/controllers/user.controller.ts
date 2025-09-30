@@ -14,6 +14,7 @@ import type {
     ApiErrorResponse,
     CreateResponse
 } from "@application/dtos/common.dto.js";
+import { ResSuccess, ResError } from "@utils/response.js";
 
 export class UserController {
     constructor(
@@ -28,33 +29,18 @@ export class UserController {
             const result = await this.userService.register.execute(body);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'REGISTRATION_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'REGISTRATION_FAILED', result.error.message, 400);
             }
 
-            const response: ApiSuccessResponse<CreateResponse> = {
-                success: true,
-                data: {
-                    id: result.value.id,
-                    message: 'User registered successfully'
-                }
+            const responseData: CreateResponse = {
+                id: result.value.id,
+                message: 'User registered successfully'
             };
 
-            return c.json(response, 201);
+            return ResSuccess(c, responseData, 201);
         } catch (error) {
             console.error('Registration error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Registration failed'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Registration failed', 500);
         }
     }
 
@@ -65,13 +51,7 @@ export class UserController {
             const result = await this.userService.login.execute(body);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'LOGIN_FAILED',
-                        message: result.error.message
-                    }
-                }, 401);
+                return ResError(c, 'LOGIN_FAILED', result.error.message, 401);
             }
 
             // Generate JWT token
@@ -85,22 +65,10 @@ export class UserController {
                 token
             };
 
-            const response: ApiSuccessResponse<AuthResponseDto> = {
-                success: true,
-                data: authResponse,
-                message: 'Login successful'
-            };
-
-            return c.json(response);
+            return ResSuccess(c, authResponse);
         } catch (error) {
             console.error('Login error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Login failed'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Login failed', 500);
         }
     }
 
@@ -111,13 +79,7 @@ export class UserController {
             const result = await this.userService.getById.execute(id);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'USER_NOT_FOUND',
-                        message: result.error.message
-                    }
-                }, 404);
+                return ResError(c, 'USER_NOT_FOUND', result.error.message, 404);
             }
 
             const user = result.value;
@@ -130,21 +92,10 @@ export class UserController {
                 createdAt: user.createdAt
             };
 
-            const response: ApiSuccessResponse<UserResponseDto> = {
-                success: true,
-                data: userResponse
-            };
-
-            return c.json(response);
+            return ResSuccess(c, userResponse);
         } catch (error) {
             console.error('Get user error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to retrieve user'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to retrieve user', 500);
         }
     }
 
@@ -158,33 +109,18 @@ export class UserController {
             const result = await this.userService.update.execute(updateData as any);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'UPDATE_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'UPDATE_FAILED', result.error.message, 400);
             }
 
-            const response: ApiSuccessResponse<CreateResponse> = {
-                success: true,
-                data: {
-                    id: result.value.id,
-                    message: 'User updated successfully'
-                }
+            const responseData: CreateResponse = {
+                id: result.value.id,
+                message: 'User updated successfully'
             };
 
-            return c.json(response);
+            return ResSuccess(c, responseData);
         } catch (error) {
             console.error('Update user error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to update user'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to update user', 500);
         }
     }
 
@@ -194,21 +130,10 @@ export class UserController {
 
             await this.userService.deleteUser.execute(id);
 
-            const response: ApiSuccessResponse<{ message: string }> = {
-                success: true,
-                data: { message: 'User deleted successfully' }
-            };
-
-            return c.json(response);
+            return ResSuccess(c, { message: 'User deleted successfully' });
         } catch (error) {
             console.error('Delete user error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to delete user'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to delete user', 500);
         }
     }
 
@@ -219,13 +144,7 @@ export class UserController {
             const result = await this.userService.listFavorites.execute(id);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'FAVORITES_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'FAVORITES_FAILED', result.error.message, 400);
             }
 
             const favorites: ModuleSummaryDto[] = result.value.map(module => ({
@@ -235,21 +154,10 @@ export class UserController {
                 level: module.level
             }));
 
-            const response: ApiSuccessResponse<ModuleSummaryDto[]> = {
-                success: true,
-                data: favorites
-            };
-
-            return c.json(response);
+            return ResSuccess(c, favorites);
         } catch (error) {
             console.error('Get favorites error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to retrieve favorites'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to retrieve favorites', 500);
         }
     }
 
@@ -261,30 +169,13 @@ export class UserController {
             const result = await this.userService.addFavorite.execute(userId, moduleId);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'ADD_FAVORITE_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'ADD_FAVORITE_FAILED', result.error.message, 400);
             }
 
-            const response: ApiSuccessResponse<{ message: string }> = {
-                success: true,
-                data: result.value
-            };
-
-            return c.json(response);
+            return ResSuccess(c, result.value);
         } catch (error) {
             console.error('Add favorite error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to add favorite'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to add favorite', 500);
         }
     }
 
@@ -296,30 +187,13 @@ export class UserController {
             const result = await this.userService.removeFavorite.execute(userId, moduleId);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'REMOVE_FAVORITE_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'REMOVE_FAVORITE_FAILED', result.error.message, 400);
             }
 
-            const response: ApiSuccessResponse<{ message: string }> = {
-                success: true,
-                data: result.value
-            };
-
-            return c.json(response);
+            return ResSuccess(c, result.value);
         } catch (error) {
             console.error('Remove favorite error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to remove favorite'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to remove favorite', 500);
         }
     }
 }

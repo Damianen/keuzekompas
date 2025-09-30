@@ -1,5 +1,6 @@
 import type { Context, Next } from "hono";
 import { NotFoundError, ValidationError } from "../../shared/error.js";
+import { ResError } from "@utils/response.js";
 
 export class ErrorMiddleware {
     static errorHandler() {
@@ -9,71 +10,32 @@ export class ErrorMiddleware {
             } catch (error) {
                 console.error('Unhandled error:', error);
 
-                // Handle known application errors
                 if (error instanceof ValidationError) {
-                    return c.json({
-                        success: false,
-                        error: {
-                            code: 'VALIDATION_ERROR',
-                            message: error.message
-                        }
-                    }, 400);
+                    return ResError(c, 'VALIDATION_ERROR', error.message, 400);
                 }
 
                 if (error instanceof NotFoundError) {
-                    return c.json({
-                        success: false,
-                        error: {
-                            code: 'NOT_FOUND',
-                            message: error.message
-                        }
-                    }, 404);
+                    return ResError(c, 'NOT_FOUND', error.message, 404);
                 }
 
-                // Handle JWT errors
                 if (error instanceof Error) {
                     if (error.name === 'JsonWebTokenError') {
-                        return c.json({
-                            success: false,
-                            error: {
-                                code: 'INVALID_TOKEN',
-                                message: 'Invalid token'
-                            }
-                        }, 401);
+                        return ResError(c, 'INVALID_TOKEN', 'Invalid token', 401);
                     }
 
                     if (error.name === 'TokenExpiredError') {
-                        return c.json({
-                            success: false,
-                            error: {
-                                code: 'TOKEN_EXPIRED',
-                                message: 'Token has expired'
-                            }
-                        }, 401);
+                        return ResError(c, 'TOKEN_EXPIRED', 'Token has expired', 401);
                     }
                 }
 
-                // Handle generic errors
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'INTERNAL_SERVER_ERROR',
-                        message: 'An unexpected error occurred'
-                    }
-                }, 500);
+                return ResError(c, 'INTERNAL_SERVER_ERROR', 'An unexpected error occurred', 500);
             }
         };
     }
 
     static notFoundHandler() {
         return (c: Context) => {
-            return c.json({
-                success: false,
-                error: {
-                    code: 'ROUTE_NOT_FOUND',
-                    message: `Route ${c.req.method} ${c.req.path} not found`
-                }
-            }, 404);
+            return ResError(c, 'ROUTE_NOT_FOUND', `Route ${c.req.method} ${c.req.path} not found`, 404);
         };
     }
 }

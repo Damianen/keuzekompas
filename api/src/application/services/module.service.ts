@@ -12,7 +12,7 @@ export class ModuleService {
         public list: ListModules,
         public getById: GetModuleById) { }
 
-    createService(repo: IModuleRepo): ModuleService {
+    static createService(repo: IModuleRepo): ModuleService {
         return new ModuleService(new DeleteModule(repo),
             new UpdateModule(repo),
             new CreateModule(repo),

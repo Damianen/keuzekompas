@@ -7,10 +7,9 @@ import type {
     ModuleListDto
 } from "@application/dtos/module.dto.js";
 import type {
-    ApiSuccessResponse,
-    ApiErrorResponse,
     CreateResponse
 } from "@application/dtos/common.dto.js";
+import { ResSuccess, ResError } from "@utils/response.js";
 
 export class ModuleController {
     constructor(
@@ -29,33 +28,18 @@ export class ModuleController {
             const result = await this.moduleService.create.execute(moduleData);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'CREATE_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'CREATE_FAILED', result.error.message, 400);
             }
 
-            const response: ApiSuccessResponse<CreateResponse> = {
-                success: true,
-                data: {
-                    id: result.value.id,
-                    message: 'Module created successfully'
-                }
+            const responseData: CreateResponse = {
+                id: result.value.id,
+                message: 'Module created successfully'
             };
 
-            return c.json(response, 201);
+            return ResSuccess(c, responseData, 201);
         } catch (error) {
             console.error('Create module error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to create module'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to create module', 500);
         }
     }
 
@@ -66,13 +50,7 @@ export class ModuleController {
             const result = await this.moduleService.getById.execute(id);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'MODULE_NOT_FOUND',
-                        message: result.error.message
-                    }
-                }, 404);
+                return ResError(c, 'MODULE_NOT_FOUND', result.error.message, 404);
             }
 
             const module = result.value;
@@ -90,21 +68,10 @@ export class ModuleController {
                 createdAt: module.createdAt
             };
 
-            const response: ApiSuccessResponse<ModuleResponseDto> = {
-                success: true,
-                data: moduleResponse
-            };
-
-            return c.json(response);
+            return ResSuccess(c, moduleResponse);
         } catch (error) {
             console.error('Get module error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to retrieve module'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to retrieve module', 500);
         }
     }
 
@@ -113,13 +80,7 @@ export class ModuleController {
             const result = await this.moduleService.list.execute();
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'LIST_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'LIST_FAILED', result.error.message, 400);
             }
 
             const modules: ModuleResponseDto[] = result.value.map(module => ({
@@ -141,21 +102,10 @@ export class ModuleController {
                 total: modules.length
             };
 
-            const response: ApiSuccessResponse<ModuleListDto> = {
-                success: true,
-                data: moduleList
-            };
-
-            return c.json(response);
+            return ResSuccess(c, moduleList);
         } catch (error) {
             console.error('List modules error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to retrieve modules'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to retrieve modules', 500);
         }
     }
 
@@ -169,33 +119,18 @@ export class ModuleController {
             const result = await this.moduleService.update.execute(updateData as any);
 
             if (!result.ok) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'UPDATE_FAILED',
-                        message: result.error.message
-                    }
-                }, 400);
+                return ResError(c, 'UPDATE_FAILED', result.error.message, 400);
             }
 
-            const response: ApiSuccessResponse<CreateResponse> = {
-                success: true,
-                data: {
-                    id: result.value.id,
-                    message: 'Module updated successfully'
-                }
+            const responseData: CreateResponse = {
+                id: result.value.id,
+                message: 'Module updated successfully'
             };
 
-            return c.json(response);
+            return ResSuccess(c, responseData);
         } catch (error) {
             console.error('Update module error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to update module'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to update module', 500);
         }
     }
 
@@ -205,21 +140,10 @@ export class ModuleController {
 
             await this.moduleService.deleteModule.execute(id);
 
-            const response: ApiSuccessResponse<{ message: string }> = {
-                success: true,
-                data: { message: 'Module deleted successfully' }
-            };
-
-            return c.json(response);
+            return ResSuccess(c, { message: 'Module deleted successfully' });
         } catch (error) {
             console.error('Delete module error:', error);
-            return c.json({
-                success: false,
-                error: {
-                    code: 'INTERNAL_ERROR',
-                    message: 'Failed to delete module'
-                }
-            }, 500);
+            return ResError(c, 'INTERNAL_ERROR', 'Failed to delete module', 500);
         }
     }
 }

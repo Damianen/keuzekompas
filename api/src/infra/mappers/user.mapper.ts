@@ -11,7 +11,7 @@ export function userDocToUser(doc: UserDoc): User {
         study: doc.study!,
         passwordHash: doc.passwordHash!,
         role: doc.role!,
-        favorites: [], // Will be populated separately when needed
+        favorites: [],
         createdAt: doc.createdAt!,
     };
 }

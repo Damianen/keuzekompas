@@ -1,6 +1,7 @@
 import type { Context, Next } from "hono";
 import type { IJwtService } from "../../domain/services/IJwtService.js";
 import type { IUserRepo } from "../../domain/repos/user.repo.js";
+import { ResError } from "@utils/response.js";
 
 export interface AuthenticatedUser {
     id: string;
@@ -18,7 +19,7 @@ export class AuthMiddleware {
     constructor(
         private jwtService: IJwtService,
         private userRepo: IUserRepo
-    ) {}
+    ) { }
 
     authenticate() {
         return async (c: Context, next: Next) => {
@@ -26,44 +27,23 @@ export class AuthMiddleware {
                 const authHeader = c.req.header('Authorization');
 
                 if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                    return c.json({
-                        success: false,
-                        error: {
-                            code: 'UNAUTHORIZED',
-                            message: 'Missing or invalid authorization header'
-                        }
-                    }, 401);
+                    return ResError(c, 'UNAUTHORIZED', 'Missing or invalid authorization header', 401);
                 }
 
                 const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-                // Verify the JWT token
                 const payload = await this.jwtService.verify<{ userId: string }>(token);
 
                 if (!payload || !payload.userId) {
-                    return c.json({
-                        success: false,
-                        error: {
-                            code: 'INVALID_TOKEN',
-                            message: 'Invalid token payload'
-                        }
-                    }, 401);
+                    return ResError(c, 'INVALID_TOKEN', 'Invalid token payload', 401);
                 }
 
-                // Get user from database
                 const user = await this.userRepo.findById(payload.userId);
 
                 if (!user) {
-                    return c.json({
-                        success: false,
-                        error: {
-                            code: 'USER_NOT_FOUND',
-                            message: 'User not found'
-                        }
-                    }, 401);
+                    return ResError(c, 'USER_NOT_FOUND', 'User not found', 401);
                 }
 
-                // Set authenticated user in context
                 c.set('user', {
                     id: user.id!,
                     email: user.email,
@@ -74,13 +54,7 @@ export class AuthMiddleware {
             } catch (error) {
                 console.error('Authentication error:', error);
 
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'AUTHENTICATION_FAILED',
-                        message: 'Authentication failed'
-                    }
-                }, 401);
+                return ResError(c, 'AUTHENTICATION_FAILED', 'Authentication failed', 401);
             }
         };
     }
@@ -90,23 +64,11 @@ export class AuthMiddleware {
             const user = c.get('user');
 
             if (!user) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'UNAUTHORIZED',
-                        message: 'Authentication required'
-                    }
-                }, 401);
+                return ResError(c, 'UNAUTHORIZED', 'Authentication required', 401);
             }
 
             if (user.role < requiredRole) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'FORBIDDEN',
-                        message: 'Insufficient permissions'
-                    }
-                }, 403);
+                return ResError(c, 'FORBIDDEN', 'Insufficient permissions', 403);
             }
 
             await next();
@@ -119,13 +81,7 @@ export class AuthMiddleware {
             const resourceUserId = c.req.param('id') || c.req.query('userId');
 
             if (!user) {
-                return c.json({
-                    success: false,
-                    error: {
-                        code: 'UNAUTHORIZED',
-                        message: 'Authentication required'
-                    }
-                }, 401);
+                return ResError(c, 'UNAUTHORIZED', 'Authentication required', 401);
             }
 
             // Allow if user is admin (role === 2) or owns the resource
@@ -134,13 +90,7 @@ export class AuthMiddleware {
                 return;
             }
 
-            return c.json({
-                success: false,
-                error: {
-                    code: 'FORBIDDEN',
-                    message: 'Access denied: insufficient permissions'
-                }
-            }, 403);
+            return ResError(c, 'FORBIDDEN', 'Access denied: insufficient permissions', 403);
         };
     }
 }

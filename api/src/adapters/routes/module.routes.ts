@@ -14,7 +14,6 @@ export function createModuleRoutes(
 ) {
     const moduleRoutes = new Hono();
 
-    // Public routes
     moduleRoutes.get(
         '/',
         async (c) => moduleController.list(c)
@@ -26,10 +25,8 @@ export function createModuleRoutes(
         async (c) => moduleController.getById(c)
     );
 
-    // Protected routes - require authentication
     moduleRoutes.use('/*', authMiddleware.authenticate());
 
-    // Admin only routes (role = 2)
     moduleRoutes.post(
         '/',
         authMiddleware.requireRole(2),

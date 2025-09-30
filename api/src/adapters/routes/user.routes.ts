@@ -15,7 +15,6 @@ export function createUserRoutes(
 ) {
     const userRoutes = new Hono();
 
-    // Public routes
     userRoutes.post(
         '/register',
         ValidationMiddleware.validateBody(registerUserSchema),
@@ -28,7 +27,6 @@ export function createUserRoutes(
         async (c) => userController.login(c)
     );
 
-    // Protected routes - require authentication
     userRoutes.use('/*', authMiddleware.authenticate());
 
     userRoutes.get(

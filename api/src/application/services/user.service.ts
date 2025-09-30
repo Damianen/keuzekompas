@@ -20,7 +20,7 @@ export class UserService {
         public addFavorite: AddFavorite,
         public removeFavorite: RemoveFavorite) { }
 
-    createService(repo: IUserRepo, moduleRepo: IModuleRepo, passwordHasher: IPasswordHasher): UserService {
+    static createService(repo: IUserRepo, moduleRepo: IModuleRepo, passwordHasher: IPasswordHasher): UserService {
         return new UserService(new DeleteUser(repo),
             new UpdateUser(repo),
             new RegisterUser(repo, passwordHasher),

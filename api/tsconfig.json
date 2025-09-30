@@ -17,7 +17,8 @@
       "@domain/*": ["src/domain/*"],
       "@application/*": ["src/application/*"],
       "@infra/*": ["src/infra/*"],
-      "@adapters/*": ["src/adapters/*"]
+      "@adapters/*": ["src/adapters/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "exclude": ["node_modules"]
