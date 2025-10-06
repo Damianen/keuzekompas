@@ -18,15 +18,8 @@ function getApiBaseUrl(): string {
         return 'https://keuzekompasapi.damianbuskens.com';
     }
 
-    const configUrl = (window as any).APP_CONFIG?.API_URL;
-
-    // Check if runtime config is available and valid
-    if (configUrl && !configUrl.startsWith('${')) {
-        return configUrl;
-    }
-
-    // Fall back to build-time env or default
-    return import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    // Local development
+    return 'http://localhost:3000';
 }
 
 class ApiService {
