@@ -2,7 +2,11 @@ export interface ApiResponse<T> {
   success: boolean;
   data: T;
   message?: string;
-  error?: string;
+  error?: {
+    code: string;
+    message: string;
+    details?: string[];
+  };
 }
 
 // User types

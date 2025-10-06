@@ -4,7 +4,7 @@ import { Menu } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function Header() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
@@ -41,9 +41,14 @@ export function Header() {
               <span className="sr-only">Toggle menu</span>
             </Button>
             {isAuthenticated ? (
-              <Button variant="ghost" asChild className="hidden md:inline-flex">
-                <Link to="/profile">{user?.name || 'Profile'}</Link>
-              </Button>
+              <>
+                <Button variant="ghost" asChild className="hidden md:inline-flex">
+                  <Link to="/profile">{user?.name || 'Profile'}</Link>
+                </Button>
+                <Button variant="outline" onClick={logout} className="hidden md:inline-flex">
+                  Logout
+                </Button>
+              </>
             ) : (
               <>
                 <Button variant="ghost" asChild className="hidden md:inline-flex">

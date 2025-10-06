@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { AdminRoute } from './components/AdminRoute';
 import { MainLayout } from './components/layout/MainLayout';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
@@ -24,9 +25,9 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
             <Route path="/modules" element={<ProtectedRoute><ModulesPage /></ProtectedRoute>} />
-            <Route path="/modules/new" element={<ProtectedRoute><ModuleFormPage /></ProtectedRoute>} />
+            <Route path="/modules/new" element={<AdminRoute><ModuleFormPage /></AdminRoute>} />
             <Route path="/modules/:id" element={<ProtectedRoute><ModuleDetailPage /></ProtectedRoute>} />
-            <Route path="/modules/:id/edit" element={<ProtectedRoute><ModuleFormPage /></ProtectedRoute>} />
+            <Route path="/modules/:id/edit" element={<AdminRoute><ModuleFormPage /></AdminRoute>} />
           </Routes>
         </MainLayout>
       </AuthProvider>

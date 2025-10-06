@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { api } from '@/services/api';
+import type { ApiResponse } from '@/types';
 
 interface UseApiState<T> {
   data: T | null;
@@ -17,8 +17,14 @@ export function useApi<T>(endpoint: string, immediate = true) {
   const fetchData = async () => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
     try {
-      const data = await api.get<T>(endpoint);
-      setState({ data, loading: false, error: null });
+      const response = await fetch(endpoint);
+      const apiResponse: ApiResponse<T> = await response.json();
+
+      if (!response.ok) {
+        throw new Error(apiResponse.error?.message || 'Request failed');
+      }
+
+      setState({ data: apiResponse.data, loading: false, error: null });
     } catch (error) {
       setState({
         data: null,

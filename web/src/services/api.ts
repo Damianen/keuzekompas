@@ -5,7 +5,6 @@ import type {
     UpdateUserDto,
     AuthResponse,
     User,
-    UserWithFavorites,
     Module,
     ModuleList,
     CreateModuleDto,
@@ -44,13 +43,16 @@ class ApiService {
     ): Promise<ApiResponse<T>> {
         const url = `${this.baseURL}${endpoint}`;
 
-        const headers: HeadersInit = {
+        const headers: Record<string, string> = {
             'Content-Type': 'application/json',
-            ...options?.headers,
         };
 
         if (this.token) {
             headers['Authorization'] = `Bearer ${this.token}`;
+        }
+
+        if (options?.headers) {
+            Object.assign(headers, options.headers);
         }
 
         const response = await fetch(url, {
@@ -61,7 +63,11 @@ class ApiService {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || data.message || `API Error: ${response.statusText}`);
+            let errorMessage = data.error?.message || data.message || `API Error: ${response.statusText}`;
+            if (data.error?.details && data.error.details.length > 0) {
+                errorMessage += '\n' + data.error.details.join('\n');
+            }
+            throw new Error(errorMessage);
         }
 
         return data;
