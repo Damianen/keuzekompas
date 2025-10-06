@@ -12,25 +12,35 @@ import type {
     ModuleSummary,
 } from '@/types';
 
-const API_BASE_URL = (window as any).APP_CONFIG?.API_URL && !(window as any).APP_CONFIG?.API_URL.startsWith('${')
-    ? (window as any).APP_CONFIG?.API_URL
-    : import.meta.env.VITE_API_URL || 'http://localhost:3000';
+function getApiBaseUrl(): string {
+    const configUrl = (window as any).APP_CONFIG?.API_URL;
 
-// Debug logging
-console.log('API Configuration:', {
-    windowConfig: (window as any).APP_CONFIG,
-    viteEnv: import.meta.env.VITE_API_URL,
-    finalURL: API_BASE_URL
-});
+    // Check if runtime config is available and valid
+    if (configUrl && !configUrl.startsWith('${')) {
+        return configUrl;
+    }
+
+    // Fall back to build-time env or default
+    return import.meta.env.VITE_API_URL || 'http://localhost:3000';
+}
 
 class ApiService {
-    private baseURL: string;
     private token: string | null = null;
 
-    constructor(baseURL: string) {
-        this.baseURL = baseURL;
+    constructor() {
         // Load token from localStorage if available
         this.token = localStorage.getItem('auth_token');
+
+        // Debug logging
+        console.log('API Configuration:', {
+            windowConfig: (window as any).APP_CONFIG,
+            viteEnv: import.meta.env.VITE_API_URL,
+            finalURL: this.getBaseURL()
+        });
+    }
+
+    private getBaseURL(): string {
+        return getApiBaseUrl();
     }
 
     setToken(token: string | null) {
@@ -50,7 +60,7 @@ class ApiService {
         endpoint: string,
         options?: RequestInit
     ): Promise<ApiResponse<T>> {
-        const url = `${this.baseURL}${endpoint}`;
+        const url = `${this.getBaseURL()}${endpoint}`;
 
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
@@ -172,4 +182,4 @@ class ApiService {
     }
 }
 
-export const api = new ApiService(API_BASE_URL);
+export const api = new ApiService();
