@@ -20,5 +20,7 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+    environment:
+      - API_URL=http://localhost:3000
     depends_on:
       - api
