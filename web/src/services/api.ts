@@ -13,6 +13,11 @@ import type {
 } from '@/types';
 
 function getApiBaseUrl(): string {
+    // Production URL
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        return 'https://keuzekompasapi.damianbuskens.com';
+    }
+
     const configUrl = (window as any).APP_CONFIG?.API_URL;
 
     // Check if runtime config is available and valid
