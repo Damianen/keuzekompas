@@ -16,6 +16,13 @@ const API_BASE_URL = (window as any).APP_CONFIG?.API_URL && !(window as any).APP
     ? (window as any).APP_CONFIG?.API_URL
     : import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
+// Debug logging
+console.log('API Configuration:', {
+    windowConfig: (window as any).APP_CONFIG,
+    viteEnv: import.meta.env.VITE_API_URL,
+    finalURL: API_BASE_URL
+});
+
 class ApiService {
     private baseURL: string;
     private token: string | null = null;
