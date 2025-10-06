@@ -64,6 +64,7 @@ app.notFound(ErrorMiddleware.notFoundHandler());
 
 serve({
     fetch: app.fetch,
-    port: Number(process.env.PORT!)
-}, () => { console.log(`app running at localhost:${process.env.PORT!}!`); });
+    port: Number(process.env.PORT!),
+    hostname: '0.0.0.0'
+}, () => { console.log(`app running at 0.0.0.0:${process.env.PORT!}!`); });
 
