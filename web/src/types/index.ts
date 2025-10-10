@@ -101,3 +101,16 @@ export interface ModuleList {
   modules: Module[];
   total: number;
 }
+
+// AI Chat types
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
+export interface AskModuleQuestionDto {
+  moduleId: string;
+  question: string;
+  conversationHistory?: ChatMessage[];
+}

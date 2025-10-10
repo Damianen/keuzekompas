@@ -49,5 +49,11 @@ export function createModuleRoutes(
         async (c) => moduleController.delete(c)
     );
 
+    // AI chat endpoint - protected, all authenticated users can use
+    moduleRoutes.post(
+        '/ask',
+        async (c) => moduleController.askQuestion(c)
+    );
+
     return moduleRoutes;
 }

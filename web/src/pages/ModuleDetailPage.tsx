@@ -4,6 +4,7 @@ import { api } from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ModuleChat } from '@/components/ModuleChat';
 import type { Module } from '@/types';
 
 export function ModuleDetailPage() {
@@ -80,11 +81,12 @@ export function ModuleDetailPage() {
 
     return (
         <div className="container mx-auto px-4 py-8 mt-10">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto space-y-6">
                 <Button variant="ghost" asChild className="mb-4">
                     <Link to="/modules">← Back to Modules</Link>
                 </Button>
 
+                {/* Module Details */}
                 <Card>
                     <CardHeader>
                         <div className="flex items-start justify-between">
@@ -126,12 +128,12 @@ export function ModuleDetailPage() {
 
                         <div>
                             <h3 className="text-lg font-semibold mb-2">Description</h3>
-                            <p className="text-gray-700">{module.description}</p>
+                            <p className="text-gray-700 dark:text-gray-300">{module.description}</p>
                         </div>
 
                         <div>
                             <h3 className="text-lg font-semibold mb-2">Additional Information</h3>
-                            <p className="text-gray-700 whitespace-pre-wrap">{module.information}</p>
+                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{module.information}</p>
                         </div>
 
                         {user?.role === 2 && (
@@ -146,6 +148,9 @@ export function ModuleDetailPage() {
                         )}
                     </CardContent>
                 </Card>
+
+                {/* AI Chat */}
+                <ModuleChat moduleId={module.id} moduleName={module.name} />
             </div>
         </div>
     );

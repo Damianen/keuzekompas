@@ -1,5 +1,6 @@
 import type { Context } from "hono";
 import type { ModuleService } from "@application/services/module.service.js";
+import type { IAiService } from "@domain/services/IAiService.js";
 import type {
     CreateModuleDto,
     UpdateModuleDto,
@@ -13,7 +14,8 @@ import { ResSuccess, ResError } from "@utils/response.js";
 
 export class ModuleController {
     constructor(
-        private moduleService: ModuleService
+        private moduleService: ModuleService,
+        private aiService?: IAiService
     ) { }
 
     async create(c: Context) {
@@ -144,6 +146,60 @@ export class ModuleController {
         } catch (error) {
             console.error('Delete module error:', error);
             return ResError(c, 'INTERNAL_ERROR', 'Failed to delete module', 500);
+        }
+    }
+
+    async askQuestion(c: Context) {
+        try {
+            if (!this.aiService) {
+                return ResError(c, 'AI_SERVICE_UNAVAILABLE', 'AI service is not configured', 503);
+            }
+
+            const body = await c.req.json();
+            const { moduleId, question, conversationHistory = [] } = body;
+
+            if (!moduleId || !question) {
+                return ResError(c, 'INVALID_REQUEST', 'moduleId and question are required', 400);
+            }
+
+            // Get module details
+            const moduleResult = await this.moduleService.getById.execute(moduleId);
+            if (!moduleResult.ok) {
+                return ResError(c, 'MODULE_NOT_FOUND', 'Module not found', 404);
+            }
+
+            const module = moduleResult.value;
+
+            // Build context-aware prompt with only current question
+            let prompt = `You are a helpful assistant answering questions about university modules. Keep your answers short, simple, and direct. Only provide essential information.\n\n`;
+            prompt += `Module Information:\n`;
+            prompt += `Name: ${module.name}\n`;
+            prompt += `Provider: ${module.provider}\n`;
+            prompt += `Level: ${module.level}\n`;
+            prompt += `Duration: ${module.duration} weeks\n`;
+            prompt += `Location: ${module.location}\n`;
+            prompt += `Language: ${module.language}\n`;
+            prompt += `Period: ${module.period}\n`;
+            prompt += `Description: ${module.description}\n`;
+            prompt += `Additional Information: ${module.information}\n\n`;
+
+            // Add current question only (no conversation history)
+            prompt += `Question: ${question}\n`;
+
+            // Generate AI response
+            const answer = await this.aiService.generateResponse(prompt, 50);
+
+            return ResSuccess(c, {
+                answer: answer.trim(),
+                conversationHistory: [
+                    ...conversationHistory,
+                    { role: 'user', content: question, timestamp: new Date() },
+                    { role: 'assistant', content: answer.trim(), timestamp: new Date() }
+                ]
+            });
+        } catch (error) {
+            console.error('AI question error:', error);
+            return ResError(c, 'AI_ERROR', 'Failed to generate response', 500);
         }
     }
 }

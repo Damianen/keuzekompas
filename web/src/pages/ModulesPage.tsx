@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { Module } from '@/types';
 
 export function ModulesPage() {
@@ -13,6 +14,11 @@ export function ModulesPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [favoriteModuleIds, setFavoriteModuleIds] = useState<Set<string>>(new Set());
+    const [filterProvider, setFilterProvider] = useState<string>('all');
+    const [filterLevel, setFilterLevel] = useState<string>('all');
+    const [filterLanguage, setFilterLanguage] = useState<string>('all');
+    const [filterLocation, setFilterLocation] = useState<string>('all');
+    const [filterPeriod, setFilterPeriod] = useState<string>('all');
 
     useEffect(() => {
         loadModules();
@@ -63,12 +69,27 @@ export function ModulesPage() {
         }
     };
 
-    const filteredModules = modules.filter(
-        (module) =>
+    // Get unique values for filters
+    const uniqueProviders = Array.from(new Set(modules.map(m => m.provider))).sort();
+    const uniqueLevels = Array.from(new Set(modules.map(m => m.level))).sort();
+    const uniqueLanguages = Array.from(new Set(modules.map(m => m.language))).sort();
+    const uniqueLocations = Array.from(new Set(modules.map(m => m.location))).sort();
+    const uniquePeriods = Array.from(new Set(modules.map(m => m.period))).sort((a, b) => a - b);
+
+    const filteredModules = modules.filter((module) => {
+        const matchesSearch =
             module.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             module.provider.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            module.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+            module.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const matchesProvider = filterProvider === 'all' || module.provider === filterProvider;
+        const matchesLevel = filterLevel === 'all' || module.level === filterLevel;
+        const matchesLanguage = filterLanguage === 'all' || module.language === filterLanguage;
+        const matchesLocation = filterLocation === 'all' || module.location === filterLocation;
+        const matchesPeriod = filterPeriod === 'all' || module.period.toString() === filterPeriod;
+
+        return matchesSearch && matchesProvider && matchesLevel && matchesLanguage && matchesLocation && matchesPeriod;
+    });
 
     if (loading) {
         return <div className="container mx-auto px-4 py-8">Loading...</div>;
@@ -85,13 +106,92 @@ export function ModulesPage() {
                         </Button>
                     )}
                 </div>
-                <Input
-                    type="search"
-                    placeholder="Search modules..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="max-w-md"
-                />
+                <div className="space-y-4">
+                    <Input
+                        type="search"
+                        placeholder="Search modules..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="max-w-md"
+                    />
+
+                    <div className="flex flex-wrap gap-4">
+                        <Select value={filterProvider} onValueChange={setFilterProvider}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Provider" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Providers</SelectItem>
+                                {uniqueProviders.map(provider => (
+                                    <SelectItem key={provider} value={provider}>{provider}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
+                        <Select value={filterLevel} onValueChange={setFilterLevel}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Level" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Levels</SelectItem>
+                                {uniqueLevels.map(level => (
+                                    <SelectItem key={level} value={level}>{level}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
+                        <Select value={filterLanguage} onValueChange={setFilterLanguage}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Language" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Languages</SelectItem>
+                                {uniqueLanguages.map(language => (
+                                    <SelectItem key={language} value={language}>{language}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
+                        <Select value={filterLocation} onValueChange={setFilterLocation}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Location" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Locations</SelectItem>
+                                {uniqueLocations.map(location => (
+                                    <SelectItem key={location} value={location}>{location}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
+                        <Select value={filterPeriod} onValueChange={setFilterPeriod}>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Period" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">All Periods</SelectItem>
+                                {uniquePeriods.map(period => (
+                                    <SelectItem key={period} value={period.toString()}>Period {period}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+
+                        {(filterProvider !== 'all' || filterLevel !== 'all' || filterLanguage !== 'all' || filterLocation !== 'all' || filterPeriod !== 'all') && (
+                            <Button
+                                variant="outline"
+                                onClick={() => {
+                                    setFilterProvider('all');
+                                    setFilterLevel('all');
+                                    setFilterLanguage('all');
+                                    setFilterLocation('all');
+                                    setFilterPeriod('all');
+                                }}
+                            >
+                                Clear Filters
+                            </Button>
+                        )}
+                    </div>
+                </div>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

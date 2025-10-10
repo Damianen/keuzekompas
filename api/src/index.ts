@@ -17,6 +17,7 @@ import { UserController } from '@adapters/controllers/user.controller.js';
 import { JwtService } from '@infra/services/JwtService.js';
 import { ModuleController } from '@adapters/controllers/module.controller.js';
 import { AuthMiddleware } from '@adapters/middlewares/auth.middleware.js';
+import { AiService } from '@infra/services/AiService.js';
 
 const app = new Hono();
 
@@ -27,8 +28,9 @@ const passwordHasher = new PasswordHasher();
 const userService = UserService.createService(userRepo, moduleRepo, passwordHasher);
 const moduleService = ModuleService.createService(moduleRepo);
 const jwtService = new JwtService(process.env.JWT_KEY!);
+const aiService = new AiService('https://qwen2.damianbuskens.com/completion');
 const userController = new UserController(userService, jwtService);
-const moduleController = new ModuleController(moduleService);
+const moduleController = new ModuleController(moduleService, aiService);
 const authMiddleware = new AuthMiddleware(jwtService, userRepo);
 
 app.use('*', logger());
@@ -62,9 +64,11 @@ app.route('/api', apiRoutes);
 
 app.notFound(ErrorMiddleware.notFoundHandler());
 
+const hostname = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+
 serve({
     fetch: app.fetch,
     port: Number(process.env.PORT!),
-    hostname: '0.0.0.0'
-}, () => { console.log(`app running at 0.0.0.0:${process.env.PORT!}!`); });
+    hostname: hostname
+}, () => { console.log(`app running at ${hostname}:${process.env.PORT!}!`); });
 

@@ -10,6 +10,8 @@ import type {
     CreateModuleDto,
     UpdateModuleDto,
     ModuleSummary,
+    ChatMessage,
+    AskModuleQuestionDto,
 } from '@/types';
 
 function getApiBaseUrl(): string {
@@ -177,6 +179,11 @@ class ApiService {
     // Health check
     async healthCheck() {
         return this.get<{ status: string; timestamp: string; version: string }>('/health');
+    }
+
+    // AI Chat methods
+    async askModuleQuestion(data: AskModuleQuestionDto) {
+        return this.post<{ answer: string; conversationHistory: ChatMessage[] }>('/api/modules/ask', data);
     }
 }
 
