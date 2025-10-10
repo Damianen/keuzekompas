@@ -43,7 +43,7 @@ describe('LoginPage', () => {
     await waitFor(() => {
       expect(screen.getByPlaceholderText(/email/i)).toBeDefined();
       expect(screen.getByPlaceholderText(/password/i)).toBeDefined();
-      expect(screen.getByRole('button', { name: /sign in/i })).toBeDefined();
+      expect(screen.getByRole('button', { name: /login/i })).toBeDefined();
     });
   });
 
@@ -80,7 +80,7 @@ describe('LoginPage', () => {
 
     const emailInput = screen.getByPlaceholderText(/email/i);
     const passwordInput = screen.getByPlaceholderText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /sign in/i });
+    const submitButton = screen.getByRole('button', { name: /login/i });
 
     await user.type(emailInput, 'test@example.com');
     await user.type(passwordInput, 'password123');
@@ -111,7 +111,7 @@ describe('LoginPage', () => {
 
     const emailInput = screen.getByPlaceholderText(/email/i);
     const passwordInput = screen.getByPlaceholderText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /sign in/i });
+    const submitButton = screen.getByRole('button', { name: /login/i });
 
     await user.type(emailInput, 'test@example.com');
     await user.type(passwordInput, 'wrongpassword');

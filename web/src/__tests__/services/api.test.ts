@@ -6,11 +6,16 @@ describe('ApiService', () => {
 
   beforeEach(() => {
     localStorage.clear();
+    vi.clearAllMocks();
     global.fetch = vi.fn();
+    vi.spyOn(localStorage, 'setItem');
+    vi.spyOn(localStorage, 'removeItem');
+    vi.spyOn(localStorage, 'getItem');
   });
 
   afterEach(() => {
     global.fetch = originalFetch;
+    vi.restoreAllMocks();
   });
 
   describe('Authentication', () => {
