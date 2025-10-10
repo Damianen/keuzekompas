@@ -183,7 +183,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}-api
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/keuzekompas-api
           tags: |
             type=ref,event=branch
             type=sha,prefix={{branch}}-
@@ -231,7 +231,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}-web
+          images: ${{ env.REGISTRY }}/${{ github.repository_owner }}/keuzekompas-web
           tags: |
             type=ref,event=branch
             type=sha,prefix={{branch}}-
