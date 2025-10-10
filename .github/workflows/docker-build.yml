@@ -1,19 +1,22 @@
 name: Build and Push Docker Images
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   push:
-    branches:
-      - main
-    tags:
-      - 'v*'
+    branches: [ main ]
+    tags: [ 'v*' ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME_API: ${{ github.repository }}/api
-  IMAGE_NAME_WEB: ${{ github.repository }}/web
+  OWNER: ${{ github.repository_owner }}
+  REPO: ${{ github.event.repository.name }}
+  IMAGE_NAME_API: ${{ env.OWNER }}/${{ env.REPO }}/api
+  IMAGE_NAME_WEB: ${{ env.OWNER }}/${{ env.REPO }}/web
 
 jobs:
   build-and-push-api:
@@ -21,20 +24,15 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata for API
-        id: meta-api
+      - id: meta-api
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_API }}
@@ -46,8 +44,7 @@ jobs:
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push API image
-        uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v5
         with:
           context: ./api
           push: ${{ github.event_name != 'pull_request' }}
@@ -59,20 +56,14 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata for Web
-        id: meta-web
+      - id: meta-web
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_WEB }}
@@ -83,11 +74,10 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
-
-      - name: Build and push Web image
-        uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v5
         with:
           context: ./web
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta-web.outputs.tags }}
           labels: ${{ steps.meta-web.outputs.labels }}
+
