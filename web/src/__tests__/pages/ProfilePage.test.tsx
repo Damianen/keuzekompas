@@ -180,8 +180,7 @@ describe('ProfilePage', () => {
 
     vi.mocked(api.removeFavorite).mockResolvedValue({
       success: true,
-      data: null,
-    });
+    } as never);
 
     render(
       <BrowserRouter>
