@@ -90,7 +90,7 @@ describe('AuthContext', () => {
       data: mockUser,
     });
 
-    let loginFn: any;
+    let loginFn: ((credentials: { email: string; password: string }) => Promise<void>) | undefined;
 
     function LoginComponent() {
       const { login } = useAuth();
@@ -108,7 +108,9 @@ describe('AuthContext', () => {
       expect(screen.getByText('Not authenticated')).toBeDefined();
     });
 
-    await loginFn({ email: 'test@example.com', password: 'password123' });
+    if (loginFn) {
+      await loginFn({ email: 'test@example.com', password: 'password123' });
+    }
 
     await waitFor(() => {
       expect(screen.getByText('Authenticated: Test User')).toBeDefined();
@@ -132,7 +134,7 @@ describe('AuthContext', () => {
       data: mockUser,
     });
 
-    let logoutFn: any;
+    let logoutFn: (() => void) | undefined;
 
     function LogoutComponent() {
       const { logout } = useAuth();
@@ -150,7 +152,9 @@ describe('AuthContext', () => {
       expect(screen.getByText('Authenticated: Test User')).toBeDefined();
     });
 
-    logoutFn();
+    if (logoutFn) {
+      logoutFn();
+    }
 
     await waitFor(() => {
       expect(screen.getByText('Not authenticated')).toBeDefined();

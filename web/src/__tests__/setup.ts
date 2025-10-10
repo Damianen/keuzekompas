@@ -9,21 +9,23 @@ afterEach(() => {
 
 // Mock localStorage
 const localStorageMock = {
-  getItem: (key: string) => null,
-  setItem: (key: string, value: string) => {},
-  removeItem: (key: string) => {},
+  getItem: () => null,
+  setItem: () => {},
+  removeItem: () => {},
   clear: () => {},
   length: 0,
-  key: (index: number) => null,
+  key: () => null,
 };
 
 global.localStorage = localStorageMock as Storage;
 
 // Mock window.location
-delete (window as any).location;
-window.location = {
-  hostname: 'localhost',
-} as any;
+Object.defineProperty(window, 'location', {
+  value: {
+    hostname: 'localhost',
+  },
+  writable: true,
+});
 
 // Mock pointer capture for Radix UI components
 if (typeof Element !== 'undefined') {

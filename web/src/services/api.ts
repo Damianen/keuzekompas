@@ -33,7 +33,7 @@ class ApiService {
 
         // Debug logging
         console.log('API Configuration:', {
-            windowConfig: (window as any).APP_CONFIG,
+            windowConfig: (window as { APP_CONFIG?: unknown }).APP_CONFIG,
             viteEnv: import.meta.env.VITE_API_URL,
             finalURL: this.getBaseURL()
         });

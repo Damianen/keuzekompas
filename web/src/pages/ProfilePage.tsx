@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { api } from '@/services/api';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,16 @@ export function ProfilePage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const loadFavorites = useCallback(async () => {
+        if (!user?.id) return;
+        try {
+            const response = await api.getUserFavorites(user.id);
+            setFavorites(response.data);
+        } catch (err) {
+            console.error('Failed to load favorites:', err);
+        }
+    }, [user?.id]);
+
     useEffect(() => {
         if (user) {
             setFormData({
@@ -28,17 +38,7 @@ export function ProfilePage() {
             });
             loadFavorites();
         }
-    }, [user]);
-
-    const loadFavorites = async () => {
-        if (!user?.id) return;
-        try {
-            const response = await api.getUserFavorites(user.id);
-            setFavorites(response.data);
-        } catch (err) {
-            console.error('Failed to load favorites:', err);
-        }
-    };
+    }, [user, loadFavorites]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
@@ -20,13 +20,6 @@ export function ModulesPage() {
     const [filterLocation, setFilterLocation] = useState<string>('all');
     const [filterPeriod, setFilterPeriod] = useState<string>('all');
 
-    useEffect(() => {
-        loadModules();
-        if (user?.id) {
-            loadFavorites();
-        }
-    }, [user?.id]);
-
     const loadModules = async () => {
         try {
             const response = await api.listModules();
@@ -38,7 +31,7 @@ export function ModulesPage() {
         }
     };
 
-    const loadFavorites = async () => {
+    const loadFavorites = useCallback(async () => {
         if (!user?.id) return;
         try {
             const response = await api.getUserFavorites(user.id);
@@ -46,7 +39,14 @@ export function ModulesPage() {
         } catch (err) {
             console.error('Failed to load favorites:', err);
         }
-    };
+    }, [user?.id]);
+
+    useEffect(() => {
+        loadModules();
+        if (user?.id) {
+            loadFavorites();
+        }
+    }, [user?.id, loadFavorites]);
 
     const handleToggleFavorite = async (moduleId: string) => {
         if (!user?.id) return;

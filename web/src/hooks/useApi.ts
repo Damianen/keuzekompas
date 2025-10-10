@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { ApiResponse } from '@/types';
 
 interface UseApiState<T> {
@@ -14,7 +14,7 @@ export function useApi<T>(endpoint: string, immediate = true) {
     error: null,
   });
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
     try {
       const response = await fetch(endpoint);
@@ -32,13 +32,13 @@ export function useApi<T>(endpoint: string, immediate = true) {
         error: error instanceof Error ? error : new Error('Unknown error'),
       });
     }
-  };
+  }, [endpoint]);
 
   useEffect(() => {
     if (immediate) {
       fetchData();
     }
-  }, [endpoint, immediate]);
+  }, [endpoint, immediate, fetchData]);
 
   return { ...state, refetch: fetchData };
 }

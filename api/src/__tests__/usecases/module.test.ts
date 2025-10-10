@@ -154,7 +154,7 @@ describe('Module Use Cases', () => {
         createdAt: new Date(),
       };
 
-      vi.mocked(mockModuleRepo.getById).mockResolvedValue(null);
+      vi.mocked(mockModuleRepo.getById).mockResolvedValue(null as any);
 
       const result = await updateModule.execute(moduleData);
 

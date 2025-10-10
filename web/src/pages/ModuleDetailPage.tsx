@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { api } from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,15 +15,6 @@ export function ModuleDetailPage() {
     const [loading, setLoading] = useState(true);
     const [isFavorited, setIsFavorited] = useState(false);
 
-    useEffect(() => {
-        if (id) {
-            loadModule(id);
-            if (user?.id) {
-                checkFavoriteStatus();
-            }
-        }
-    }, [id, user?.id]);
-
     const loadModule = async (moduleId: string) => {
         try {
             const response = await api.getModule(moduleId);
@@ -35,7 +26,7 @@ export function ModuleDetailPage() {
         }
     };
 
-    const checkFavoriteStatus = async () => {
+    const checkFavoriteStatus = useCallback(async () => {
         if (!user?.id || !id) return;
         try {
             const response = await api.getUserFavorites(user.id);
@@ -43,7 +34,16 @@ export function ModuleDetailPage() {
         } catch (err) {
             console.error('Failed to check favorite status:', err);
         }
-    };
+    }, [user?.id, id]);
+
+    useEffect(() => {
+        if (id) {
+            loadModule(id);
+            if (user?.id) {
+                checkFavoriteStatus();
+            }
+        }
+    }, [id, user?.id, checkFavoriteStatus]);
 
     const handleDelete = async () => {
         if (!id || !confirm('Are you sure you want to delete this module?')) return;
