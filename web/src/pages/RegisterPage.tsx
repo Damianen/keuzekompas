@@ -24,7 +24,7 @@ export function RegisterPage() {
         setError('');
 
         if (formData.password !== formData.confirmPassword) {
-            setError('Passwords do not match');
+            setError('Wachtwoorden komen niet overeen');
             return;
         }
 
@@ -38,7 +38,7 @@ export function RegisterPage() {
             });
             navigate('/modules');
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Registration failed');
+            setError(err instanceof Error ? err.message : 'Registratie mislukt');
         } finally {
             setLoading(false);
         }
@@ -48,46 +48,46 @@ export function RegisterPage() {
         <div className="flex min-h-screen items-center justify-center px-4 mt-10">
             <Card className="w-full max-w-md">
                 <CardHeader>
-                    <CardTitle>Create an account</CardTitle>
-                    <CardDescription>Sign up to start exploring modules</CardDescription>
+                    <CardTitle>Account aanmaken</CardTitle>
+                    <CardDescription>Registreer om modules te verkennen</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">E-mail</Label>
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="name@example.com"
+                                placeholder="naam@voorbeeld.nl"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 required
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name">Naam</Label>
                             <Input
                                 id="name"
                                 type="text"
-                                placeholder="John Doe"
+                                placeholder="Jan Jansen"
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 required
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="study">Study Program</Label>
+                            <Label htmlFor="study">Studieprogramma</Label>
                             <Input
                                 id="study"
                                 type="text"
-                                placeholder="Computer Science"
+                                placeholder="Informatica"
                                 value={formData.study}
                                 onChange={(e) => setFormData({ ...formData, study: e.target.value })}
                                 required
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password">Wachtwoord</Label>
                             <Input
                                 id="password"
                                 type="password"
@@ -97,7 +97,7 @@ export function RegisterPage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="confirmPassword">Confirm Password</Label>
+                            <Label htmlFor="confirmPassword">Bevestig wachtwoord</Label>
                             <Input
                                 id="confirmPassword"
                                 type="password"
@@ -108,12 +108,12 @@ export function RegisterPage() {
                         </div>
                         {error && <p className="text-sm text-red-600">{error}</p>}
                         <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? 'Creating account...' : 'Sign up'}
+                            {loading ? 'Account aanmaken...' : 'Registreren'}
                         </Button>
                         <p className="text-center text-sm text-gray-600">
-                            Already have an account?{' '}
+                            Al een account?{' '}
                             <Link to="/login" className="text-blue-600 hover:underline">
-                                Sign in
+                                Inloggen
                             </Link>
                         </p>
                     </form>

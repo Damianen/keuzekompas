@@ -70,7 +70,7 @@ export function ProfilePage() {
     };
 
     if (!user) {
-        return <div>Loading...</div>;
+        return <div>Laden...</div>;
     }
 
     return (
@@ -78,14 +78,14 @@ export function ProfilePage() {
             <div className="max-w-4xl mx-auto space-y-8">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Profile</CardTitle>
-                        <CardDescription>Manage your account information</CardDescription>
+                        <CardTitle>Profiel</CardTitle>
+                        <CardDescription>Beheer je accountgegevens</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {editing ? (
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">Naam</Label>
                                     <Input
                                         id="name"
                                         value={formData.name}
@@ -93,7 +93,7 @@ export function ProfilePage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">Email</Label>
+                                    <Label htmlFor="email">E-mail</Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -102,7 +102,7 @@ export function ProfilePage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="study">Study Program</Label>
+                                    <Label htmlFor="study">Studieprogramma</Label>
                                     <Input
                                         id="study"
                                         value={formData.study}
@@ -112,35 +112,35 @@ export function ProfilePage() {
                                 {error && <p className="text-sm text-red-600">{error}</p>}
                                 <div className="flex gap-2">
                                     <Button type="submit" disabled={loading}>
-                                        {loading ? 'Saving...' : 'Save'}
+                                        {loading ? 'Opslaan...' : 'Opslaan'}
                                     </Button>
                                     <Button type="button" variant="outline" onClick={() => setEditing(false)}>
-                                        Cancel
+                                        Annuleren
                                     </Button>
                                 </div>
                             </form>
                         ) : (
                             <div className="space-y-4">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500">Name</p>
+                                    <p className="text-sm font-medium text-gray-500">Naam</p>
                                     <p className="text-base">{user.name}</p>
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500">Email</p>
+                                    <p className="text-sm font-medium text-gray-500">E-mail</p>
                                     <p className="text-base">{user.email}</p>
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500">Study Program</p>
+                                    <p className="text-sm font-medium text-gray-500">Studieprogramma</p>
                                     <p className="text-base">{user.study}</p>
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500">Role</p>
-                                    <p className="text-base">{user.role === 2 ? 'Admin' : 'Student'}</p>
+                                    <p className="text-sm font-medium text-gray-500">Rol</p>
+                                    <p className="text-base">{user.role === 2 ? 'Beheerder' : 'Student'}</p>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Button onClick={() => setEditing(true)}>Edit Profile</Button>
+                                    <Button onClick={() => setEditing(true)}>Bewerk Profiel</Button>
                                     <Button variant="outline" onClick={logout}>
-                                        Logout
+                                        Uitloggen
                                     </Button>
                                 </div>
                             </div>
@@ -150,12 +150,12 @@ export function ProfilePage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Favorite Modules</CardTitle>
-                        <CardDescription>Your saved modules</CardDescription>
+                        <CardTitle>Favoriete Modules</CardTitle>
+                        <CardDescription>Je opgeslagen modules</CardDescription>
                     </CardHeader>
                     <CardContent>
                         {favorites.length === 0 ? (
-                            <p className="text-gray-500">No favorites yet</p>
+                            <p className="text-gray-500">Nog geen favorieten</p>
                         ) : (
                             <div className="space-y-2">
                                 {favorites.map((module) => (
@@ -166,7 +166,7 @@ export function ProfilePage() {
                                         <div>
                                             <p className="font-medium">{module.name}</p>
                                             <p className="text-sm text-gray-500">
-                                                {module.provider} • {module.level} • {module.duration} weeks
+                                                {module.provider} • {module.level} • {module.duration} weken
                                             </p>
                                         </div>
                                         <Button
@@ -174,7 +174,7 @@ export function ProfilePage() {
                                             size="sm"
                                             onClick={() => handleRemoveFavorite(module.id)}
                                         >
-                                            Remove
+                                            Verwijderen
                                         </Button>
                                     </div>
                                 ))}

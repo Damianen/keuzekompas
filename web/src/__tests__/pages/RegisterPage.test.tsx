@@ -41,10 +41,10 @@ describe('RegisterPage', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText(/name@example.com/i)).toBeDefined();
-      expect(screen.getByPlaceholderText(/john doe/i)).toBeDefined();
-      expect(screen.getByPlaceholderText(/computer science/i)).toBeDefined();
-      expect(screen.getByRole('button', { name: /sign up/i })).toBeDefined();
+      expect(screen.getByPlaceholderText(/naam@voorbeeld.nl/i)).toBeDefined();
+      expect(screen.getByPlaceholderText(/jan jansen/i)).toBeDefined();
+      expect(screen.getByPlaceholderText(/informatica/i)).toBeDefined();
+      expect(screen.getByRole('button', { name: /registreren/i })).toBeDefined();
     });
   });
 
@@ -77,14 +77,14 @@ describe('RegisterPage', () => {
       </BrowserRouter>
     );
 
-    await waitFor(() => screen.getByPlaceholderText(/john doe/i));
+    await waitFor(() => screen.getByPlaceholderText(/jan jansen/i));
 
-    const emailInput = screen.getByPlaceholderText(/name@example.com/i);
-    const nameInput = screen.getByPlaceholderText(/john doe/i);
-    const studyInput = screen.getByPlaceholderText(/computer science/i);
-    const passwordInput = screen.getByLabelText(/^password$/i);
-    const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
-    const submitButton = screen.getByRole('button', { name: /sign up/i });
+    const emailInput = screen.getByPlaceholderText(/naam@voorbeeld.nl/i);
+    const nameInput = screen.getByPlaceholderText(/jan jansen/i);
+    const studyInput = screen.getByPlaceholderText(/informatica/i);
+    const passwordInput = screen.getByLabelText(/^wachtwoord$/i);
+    const confirmPasswordInput = screen.getByLabelText(/bevestig wachtwoord/i);
+    const submitButton = screen.getByRole('button', { name: /registreren/i });
 
     await user.type(emailInput, 'test@example.com');
     await user.type(nameInput, 'Test User');
@@ -116,14 +116,14 @@ describe('RegisterPage', () => {
       </BrowserRouter>
     );
 
-    await waitFor(() => screen.getByPlaceholderText(/john doe/i));
+    await waitFor(() => screen.getByPlaceholderText(/jan jansen/i));
 
-    const emailInput = screen.getByPlaceholderText(/name@example.com/i);
-    const nameInput = screen.getByPlaceholderText(/john doe/i);
-    const studyInput = screen.getByPlaceholderText(/computer science/i);
-    const passwordInput = screen.getByLabelText(/^password$/i);
-    const confirmPasswordInput = screen.getByLabelText(/confirm password/i);
-    const submitButton = screen.getByRole('button', { name: /sign up/i });
+    const emailInput = screen.getByPlaceholderText(/naam@voorbeeld.nl/i);
+    const nameInput = screen.getByPlaceholderText(/jan jansen/i);
+    const studyInput = screen.getByPlaceholderText(/informatica/i);
+    const passwordInput = screen.getByLabelText(/^wachtwoord$/i);
+    const confirmPasswordInput = screen.getByLabelText(/bevestig wachtwoord/i);
+    const submitButton = screen.getByRole('button', { name: /registreren/i });
 
     await user.type(emailInput, 'test@example.com');
     await user.type(nameInput, 'Test User');
@@ -147,7 +147,7 @@ describe('RegisterPage', () => {
     );
 
     await waitFor(() => {
-      const loginLink = screen.getByText(/sign in/i);
+      const loginLink = screen.getByText(/inloggen/i);
       expect(loginLink.closest('a')).toHaveProperty('href');
     });
   });

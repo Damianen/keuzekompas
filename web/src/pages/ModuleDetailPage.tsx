@@ -46,7 +46,7 @@ export function ModuleDetailPage() {
     }, [id, user?.id, checkFavoriteStatus]);
 
     const handleDelete = async () => {
-        if (!id || !confirm('Are you sure you want to delete this module?')) return;
+        if (!id || !confirm('Weet je zeker dat je deze module wilt verwijderen?')) return;
 
         try {
             await api.deleteModule(id);
@@ -72,18 +72,18 @@ export function ModuleDetailPage() {
     };
 
     if (loading) {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>;
+        return <div className="container mx-auto px-4 py-8">Laden...</div>;
     }
 
     if (!module) {
-        return <div className="container mx-auto px-4 py-8">Module not found</div>;
+        return <div className="container mx-auto px-4 py-8">Module niet gevonden</div>;
     }
 
     return (
         <div className="container mx-auto px-4 py-8 mt-10">
             <div className="max-w-4xl mx-auto space-y-6">
                 <Button variant="ghost" asChild className="mb-4">
-                    <Link to="/modules">← Back to Modules</Link>
+                    <Link to="/modules">← Terug naar Modules</Link>
                 </Button>
 
                 {/* Module Details */}
@@ -101,7 +101,7 @@ export function ModuleDetailPage() {
                                     variant={isFavorited ? "default" : "outline"}
                                     onClick={handleToggleFavorite}
                                 >
-                                    {isFavorited ? "♥ Favorited" : "♡ Add to Favorites"}
+                                    {isFavorited ? "♥ Favoriet" : "♡ Toevoegen aan Favorieten"}
                                 </Button>
                             )}
                         </div>
@@ -109,40 +109,40 @@ export function ModuleDetailPage() {
                     <CardContent className="space-y-6">
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
-                                <p className="text-sm font-medium text-gray-500">Location</p>
+                                <p className="text-sm font-medium text-gray-500">Locatie</p>
                                 <p className="text-base">{module.location}</p>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-500">Duration</p>
-                                <p className="text-base">{module.duration} weeks</p>
+                                <p className="text-sm font-medium text-gray-500">Duur</p>
+                                <p className="text-base">{module.duration} weken</p>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-500">Language</p>
+                                <p className="text-sm font-medium text-gray-500">Taal</p>
                                 <p className="text-base">{module.language}</p>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-500">Period</p>
-                                <p className="text-base">Period {module.period}</p>
+                                <p className="text-sm font-medium text-gray-500">Periode</p>
+                                <p className="text-base">Periode {module.period}</p>
                             </div>
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-semibold mb-2">Description</h3>
+                            <h3 className="text-lg font-semibold mb-2">Beschrijving</h3>
                             <p className="text-gray-700 dark:text-gray-300">{module.description}</p>
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-semibold mb-2">Additional Information</h3>
+                            <h3 className="text-lg font-semibold mb-2">Aanvullende Informatie</h3>
                             <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{module.information}</p>
                         </div>
 
                         {user?.role === 2 && (
                             <div className="flex gap-2 pt-4 border-t">
                                 <Button asChild variant="outline">
-                                    <Link to={`/modules/${module.id}/edit`}>Edit Module</Link>
+                                    <Link to={`/modules/${module.id}/edit`}>Bewerk Module</Link>
                                 </Button>
                                 <Button variant="destructive" onClick={handleDelete}>
-                                    Delete Module
+                                    Verwijder Module
                                 </Button>
                             </div>
                         )}

@@ -74,7 +74,7 @@ describe('ProfilePage', () => {
       expect(screen.getByText('Test User')).toBeDefined();
     });
 
-    const editButton = screen.getByRole('button', { name: /edit profile/i });
+    const editButton = screen.getByRole('button', { name: /bewerk profiel/i });
     await user.click(editButton);
 
     await waitFor(() => {
@@ -104,14 +104,14 @@ describe('ProfilePage', () => {
       expect(screen.getByText('Test User')).toBeDefined();
     });
 
-    const editButton = screen.getByRole('button', { name: /edit profile/i });
+    const editButton = screen.getByRole('button', { name: /bewerk profiel/i });
     await user.click(editButton);
 
     const nameInput = screen.getByDisplayValue('Test User');
     await user.clear(nameInput);
     await user.type(nameInput, 'Updated Name');
 
-    const saveButton = screen.getByRole('button', { name: /save/i });
+    const saveButton = screen.getByRole('button', { name: /opslaan/i });
     await user.click(saveButton);
 
     await waitFor(() => {
@@ -194,7 +194,7 @@ describe('ProfilePage', () => {
       expect(screen.getByText('Test Module')).toBeDefined();
     });
 
-    const removeButton = screen.getByRole('button', { name: /remove/i });
+    const removeButton = screen.getByRole('button', { name: /verwijderen/i });
     await user.click(removeButton);
 
     await waitFor(() => {

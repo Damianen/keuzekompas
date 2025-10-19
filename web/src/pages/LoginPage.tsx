@@ -23,7 +23,7 @@ export function LoginPage() {
             await login({ email, password });
             navigate('/modules');
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Login failed');
+            setError(err instanceof Error ? err.message : 'Inloggen mislukt');
         } finally {
             setLoading(false);
         }
@@ -34,30 +34,30 @@ export function LoginPage() {
             <div className="mx-auto max-w-md">
                 <Card>
                     <CardHeader>
-                        <CardTitle>Login</CardTitle>
+                        <CardTitle>Inloggen</CardTitle>
                         <CardDescription>
-                            Enter your credentials to access your account
+                            Voer je inloggegevens in om toegang te krijgen tot je account
                         </CardDescription>
                     </CardHeader>
                     <form onSubmit={handleSubmit}>
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="email">Email</Label>
+                                <Label htmlFor="email">E-mail</Label>
                                 <Input
                                     id="email"
                                     type="email"
-                                    placeholder="Enter your email"
+                                    placeholder="Voer je e-mailadres in"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
                             </div>
                             <div className="space-y-2 pb-6">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password">Wachtwoord</Label>
                                 <Input
                                     id="password"
                                     type="password"
-                                    placeholder="Enter your password"
+                                    placeholder="Voer je wachtwoord in"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
@@ -67,12 +67,12 @@ export function LoginPage() {
                         </CardContent>
                         <CardFooter className="flex flex-col gap-4">
                             <Button className="w-full" type="submit" disabled={loading}>
-                                {loading ? 'Logging in...' : 'Login'}
+                                {loading ? 'Bezig met inloggen...' : 'Inloggen'}
                             </Button>
                             <p className="text-sm text-muted-foreground text-center">
-                                Don't have an account?{' '}
+                                Nog geen account?{' '}
                                 <Link to="/register" className="text-primary hover:underline">
-                                    Sign up
+                                    Registreren
                                 </Link>
                             </p>
                         </CardFooter>

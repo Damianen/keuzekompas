@@ -41,9 +41,9 @@ describe('LoginPage', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText(/email/i)).toBeDefined();
-      expect(screen.getByPlaceholderText(/password/i)).toBeDefined();
-      expect(screen.getByRole('button', { name: /login/i })).toBeDefined();
+      expect(screen.getByPlaceholderText(/e-mailadres/i)).toBeDefined();
+      expect(screen.getByPlaceholderText(/wachtwoord/i)).toBeDefined();
+      expect(screen.getByRole('button', { name: /inloggen/i })).toBeDefined();
     });
   });
 
@@ -76,11 +76,11 @@ describe('LoginPage', () => {
       </BrowserRouter>
     );
 
-    await waitFor(() => screen.getByPlaceholderText(/email/i));
+    await waitFor(() => screen.getByPlaceholderText(/e-mailadres/i));
 
-    const emailInput = screen.getByPlaceholderText(/email/i);
-    const passwordInput = screen.getByPlaceholderText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /login/i });
+    const emailInput = screen.getByPlaceholderText(/e-mailadres/i);
+    const passwordInput = screen.getByPlaceholderText(/wachtwoord/i);
+    const submitButton = screen.getByRole('button', { name: /inloggen/i });
 
     await user.type(emailInput, 'test@example.com');
     await user.type(passwordInput, 'password123');
@@ -107,11 +107,11 @@ describe('LoginPage', () => {
       </BrowserRouter>
     );
 
-    await waitFor(() => screen.getByPlaceholderText(/email/i));
+    await waitFor(() => screen.getByPlaceholderText(/e-mailadres/i));
 
-    const emailInput = screen.getByPlaceholderText(/email/i);
-    const passwordInput = screen.getByPlaceholderText(/password/i);
-    const submitButton = screen.getByRole('button', { name: /login/i });
+    const emailInput = screen.getByPlaceholderText(/e-mailadres/i);
+    const passwordInput = screen.getByPlaceholderText(/wachtwoord/i);
+    const submitButton = screen.getByRole('button', { name: /inloggen/i });
 
     await user.type(emailInput, 'test@example.com');
     await user.type(passwordInput, 'wrongpassword');
@@ -132,7 +132,7 @@ describe('LoginPage', () => {
     );
 
     await waitFor(() => {
-      const registerLink = screen.getByText(/sign up/i);
+      const registerLink = screen.getByText(/registreren/i);
       expect(registerLink.closest('a')).toHaveProperty('href');
     });
   });

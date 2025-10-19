@@ -649,7 +649,7 @@ export function ModulesPage() {
     });
 &nbsp;
     if (loading) {
-        return &lt;div className="container mx-auto px-4 py-8"&gt;Loading...&lt;/div&gt;;
+        return &lt;div className="container mx-auto px-4 py-8"&gt;Laden...&lt;/div&gt;;
     }
 &nbsp;
     return (
@@ -659,14 +659,14 @@ export function ModulesPage() {
                     &lt;h1 className="text-3xl font-bold"&gt;Modules&lt;/h1&gt;
                     {user?.role === <span class="branch-0 cbranch-no" title="branch not covered" >2 &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;Button asChild&gt;</span>
-<span class="cstat-no" title="statement not covered" >                            &lt;Link to="/modules/new"&gt;Add Module&lt;/Link&gt;</span>
+<span class="cstat-no" title="statement not covered" >                            &lt;Link to="/modules/new"&gt;Module toevoegen&lt;/Link&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;/Button&gt;</span>
                     )}
                 &lt;/div&gt;
                 &lt;div className="space-y-4"&gt;
                     &lt;Input
                         type="search"
-                        placeholder="Search modules..."
+                        placeholder="Zoek modules..."
                         value={searchTerm}
                         onChange={(e) =&gt; setSearchTerm(e.target.value)}
                         className="max-w-md"
@@ -675,10 +675,10 @@ export function ModulesPage() {
                     &lt;div className="flex flex-wrap gap-4"&gt;
                         &lt;Select value={filterProvider} onValueChange={setFilterProvider}&gt;
                             &lt;SelectTrigger className="w-[180px]"&gt;
-                                &lt;SelectValue placeholder="Provider" /&gt;
+                                &lt;SelectValue placeholder="Aanbieder" /&gt;
                             &lt;/SelectTrigger&gt;
                             &lt;SelectContent&gt;
-                                &lt;SelectItem value="all"&gt;All Providers&lt;/SelectItem&gt;
+                                &lt;SelectItem value="all"&gt;Alle aanbieders&lt;/SelectItem&gt;
                                 {uniqueProviders.map(provider =&gt; (
                                     &lt;SelectItem key={provider} value={provider}&gt;{provider}&lt;/SelectItem&gt;
                                 ))}
@@ -687,10 +687,10 @@ export function ModulesPage() {
 &nbsp;
                         &lt;Select value={filterLevel} onValueChange={setFilterLevel}&gt;
                             &lt;SelectTrigger className="w-[180px]"&gt;
-                                &lt;SelectValue placeholder="Level" /&gt;
+                                &lt;SelectValue placeholder="Niveau" /&gt;
                             &lt;/SelectTrigger&gt;
                             &lt;SelectContent&gt;
-                                &lt;SelectItem value="all"&gt;All Levels&lt;/SelectItem&gt;
+                                &lt;SelectItem value="all"&gt;Alle niveaus&lt;/SelectItem&gt;
                                 {uniqueLevels.map(level =&gt; (
                                     &lt;SelectItem key={level} value={level}&gt;{level}&lt;/SelectItem&gt;
                                 ))}
@@ -699,10 +699,10 @@ export function ModulesPage() {
 &nbsp;
                         &lt;Select value={filterLanguage} onValueChange={setFilterLanguage}&gt;
                             &lt;SelectTrigger className="w-[180px]"&gt;
-                                &lt;SelectValue placeholder="Language" /&gt;
+                                &lt;SelectValue placeholder="Taal" /&gt;
                             &lt;/SelectTrigger&gt;
                             &lt;SelectContent&gt;
-                                &lt;SelectItem value="all"&gt;All Languages&lt;/SelectItem&gt;
+                                &lt;SelectItem value="all"&gt;Alle talen&lt;/SelectItem&gt;
                                 {uniqueLanguages.map(language =&gt; (
                                     &lt;SelectItem key={language} value={language}&gt;{language}&lt;/SelectItem&gt;
                                 ))}
@@ -711,10 +711,10 @@ export function ModulesPage() {
 &nbsp;
                         &lt;Select value={filterLocation} onValueChange={setFilterLocation}&gt;
                             &lt;SelectTrigger className="w-[180px]"&gt;
-                                &lt;SelectValue placeholder="Location" /&gt;
+                                &lt;SelectValue placeholder="Locatie" /&gt;
                             &lt;/SelectTrigger&gt;
                             &lt;SelectContent&gt;
-                                &lt;SelectItem value="all"&gt;All Locations&lt;/SelectItem&gt;
+                                &lt;SelectItem value="all"&gt;Alle locaties&lt;/SelectItem&gt;
                                 {uniqueLocations.map(location =&gt; (
                                     &lt;SelectItem key={location} value={location}&gt;{location}&lt;/SelectItem&gt;
                                 ))}
@@ -723,12 +723,12 @@ export function ModulesPage() {
 &nbsp;
                         &lt;Select value={filterPeriod} onValueChange={setFilterPeriod}&gt;
                             &lt;SelectTrigger className="w-[180px]"&gt;
-                                &lt;SelectValue placeholder="Period" /&gt;
+                                &lt;SelectValue placeholder="Periode" /&gt;
                             &lt;/SelectTrigger&gt;
                             &lt;SelectContent&gt;
-                                &lt;SelectItem value="all"&gt;All Periods&lt;/SelectItem&gt;
+                                &lt;SelectItem value="all"&gt;Alle periodes&lt;/SelectItem&gt;
                                 {uniquePeriods.map(period =&gt; (
-                                    &lt;SelectItem key={period} value={period.toString()}&gt;Period {period}&lt;/SelectItem&gt;
+                                    &lt;SelectItem key={period} value={period.toString()}&gt;Periode {period}&lt;/SelectItem&gt;
                                 ))}
                             &lt;/SelectContent&gt;
                         &lt;/Select&gt;
@@ -744,7 +744,7 @@ export function ModulesPage() {
 <span class="cstat-no" title="statement not covered" >                                    setFilterPeriod('all');</span>
 <span class="cstat-no" title="statement not covered" >                                }}</span>
 <span class="cstat-no" title="statement not covered" >                            &gt;</span>
-                                Clear Filters
+                                Filters wissen
 <span class="cstat-no" title="statement not covered" >                            &lt;/Button&gt;</span>
                         )}
                     &lt;/div&gt;
@@ -766,23 +766,23 @@ export function ModulesPage() {
                                 &lt;div className="flex flex-wrap gap-2 text-xs text-gray-600"&gt;
                                     &lt;span&gt;{module.location}&lt;/span&gt;
                                     &lt;span&gt;•&lt;/span&gt;
-                                    &lt;span&gt;{module.duration} weeks&lt;/span&gt;
+                                    &lt;span&gt;{module.duration} weken&lt;/span&gt;
                                     &lt;span&gt;•&lt;/span&gt;
                                     &lt;span&gt;{module.language}&lt;/span&gt;
                                     &lt;span&gt;•&lt;/span&gt;
-                                    &lt;span&gt;Period {module.period}&lt;/span&gt;
+                                    &lt;span&gt;Periode {module.period}&lt;/span&gt;
                                 &lt;/div&gt;
                             &lt;/div&gt;
                             &lt;div className="flex gap-2"&gt;
                                 &lt;Button asChild variant="outline" className="flex-1"&gt;
-                                    &lt;Link to={`/modules/${module.id}`}&gt;View Details&lt;/Link&gt;
+                                    &lt;Link to={`/modules/${module.id}`}&gt;Bekijk details&lt;/Link&gt;
                                 &lt;/Button&gt;
                                 {user &amp;&amp; (
                                     &lt;Button
                                         variant={favoriteModuleIds.has(module.id) ? "default" : "ghost"}
                                         size="icon"
                                         onClick={() =&gt; handleToggleFavorite(module.id)}
-                                        title={favoriteModuleIds.has(module.id) ? "Remove from favorites" : "Add to favorites"}
+                                        title={favoriteModuleIds.has(module.id) ? "Verwijder uit favorieten" : "Toevoegen aan favorieten"}
                                     &gt;
                                         {favoriteModuleIds.has(module.id) ? "♥" : "♡"}
                                     &lt;/Button&gt;
@@ -795,7 +795,7 @@ export function ModulesPage() {
 &nbsp;
             {filteredModules.length === 0 &amp;&amp; (
                 &lt;div className="text-center py-12"&gt;
-                    &lt;p className="text-gray-500"&gt;No modules found&lt;/p&gt;
+                    &lt;p className="text-gray-500"&gt;Geen modules gevonden&lt;/p&gt;
                 &lt;/div&gt;
             )}
         &lt;/div&gt;
@@ -808,7 +808,7 @@ export function ModulesPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-10T12:49:33.327Z
+                at 2025-10-12T15:51:04.246Z
             </div>
         <script src="../prettify.js"></script>
         <script>

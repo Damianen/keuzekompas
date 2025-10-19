@@ -3,26 +3,26 @@ import { UserPlus, Search, Heart, GraduationCap } from 'lucide-react';
 const steps = [
   {
     number: '1',
-    title: 'Create Account',
-    description: 'Sign up with your email to get started and access all features.',
+    title: 'Account Aanmaken',
+    description: 'Meld je aan met je e-mail om te beginnen en toegang te krijgen tot alle functies.',
     icon: UserPlus,
   },
   {
     number: '2',
-    title: 'Browse Modules',
-    description: 'Explore our extensive catalog and use filters to find what you need.',
+    title: 'Modules Bekijken',
+    description: 'Verken onze uitgebreide catalogus en gebruik filters om te vinden wat je nodig hebt.',
     icon: Search,
   },
   {
     number: '3',
-    title: 'Save Favorites',
-    description: 'Mark modules you\'re interested in and build your personal collection.',
+    title: 'Favorieten Opslaan',
+    description: 'Markeer modules die je interesseren en bouw je persoonlijke collectie.',
     icon: Heart,
   },
   {
     number: '4',
-    title: 'Make Your Choice',
-    description: 'Review your options and make an informed decision about your studies.',
+    title: 'Maak Je Keuze',
+    description: 'Bekijk je opties en maak een weloverwogen beslissing over je studie.',
     icon: GraduationCap,
   },
 ];
@@ -32,10 +32,10 @@ export function HowItWorksSection() {
     <section className="container mx-auto px-4 py-20">
       <div className="mx-auto flex max-w-[980px] flex-col items-center justify-center gap-4 text-center mb-16">
         <h2 className="text-3xl font-bold leading-tight tracking-tighter md:text-5xl">
-          How It Works
+          Hoe Het Werkt
         </h2>
         <p className="max-w-[700px] mx-auto text-lg text-muted-foreground">
-          Get started in just a few simple steps
+          Begin in slechts een paar eenvoudige stappen
         </p>
       </div>
 

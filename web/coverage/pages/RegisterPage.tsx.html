@@ -337,7 +337,7 @@ export function RegisterPage() {
         setError('');
 &nbsp;
         if (formData.password !== formData.confirmPassword) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >            setError('Passwords do not match');</span>
+<span class="cstat-no" title="statement not covered" >            setError('Wachtwoorden komen niet overeen');</span>
 <span class="cstat-no" title="statement not covered" >            return;</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
 &nbsp;
@@ -351,7 +351,7 @@ export function RegisterPage() {
             });
             navigate('/modules');
         } catch (err) {
-            setError(err instanceof Error ? err.<span class="branch-0 cbranch-no" title="branch not covered" >message : 'Registration failed')</span>;
+            setError(err instanceof Error ? err.<span class="branch-0 cbranch-no" title="branch not covered" >message : 'Registratie mislukt')</span>;
         } finally {
             setLoading(false);
         }
@@ -361,46 +361,46 @@ export function RegisterPage() {
         &lt;div className="flex min-h-screen items-center justify-center px-4 mt-10"&gt;
             &lt;Card className="w-full max-w-md"&gt;
                 &lt;CardHeader&gt;
-                    &lt;CardTitle&gt;Create an account&lt;/CardTitle&gt;
-                    &lt;CardDescription&gt;Sign up to start exploring modules&lt;/CardDescription&gt;
+                    &lt;CardTitle&gt;Account aanmaken&lt;/CardTitle&gt;
+                    &lt;CardDescription&gt;Registreer om modules te verkennen&lt;/CardDescription&gt;
                 &lt;/CardHeader&gt;
                 &lt;CardContent&gt;
                     &lt;form onSubmit={handleSubmit} className="space-y-4"&gt;
                         &lt;div className="space-y-2"&gt;
-                            &lt;Label htmlFor="email"&gt;Email&lt;/Label&gt;
+                            &lt;Label htmlFor="email"&gt;E-mail&lt;/Label&gt;
                             &lt;Input
                                 id="email"
                                 type="email"
-                                placeholder="name@example.com"
+                                placeholder="naam@voorbeeld.nl"
                                 value={formData.email}
                                 onChange={(e) =&gt; setFormData({ ...formData, email: e.target.value })}
                                 required
                             /&gt;
                         &lt;/div&gt;
                         &lt;div className="space-y-2"&gt;
-                            &lt;Label htmlFor="name"&gt;Name&lt;/Label&gt;
+                            &lt;Label htmlFor="name"&gt;Naam&lt;/Label&gt;
                             &lt;Input
                                 id="name"
                                 type="text"
-                                placeholder="John Doe"
+                                placeholder="Jan Jansen"
                                 value={formData.name}
                                 onChange={(e) =&gt; setFormData({ ...formData, name: e.target.value })}
                                 required
                             /&gt;
                         &lt;/div&gt;
                         &lt;div className="space-y-2"&gt;
-                            &lt;Label htmlFor="study"&gt;Study Program&lt;/Label&gt;
+                            &lt;Label htmlFor="study"&gt;Studieprogramma&lt;/Label&gt;
                             &lt;Input
                                 id="study"
                                 type="text"
-                                placeholder="Computer Science"
+                                placeholder="Informatica"
                                 value={formData.study}
                                 onChange={(e) =&gt; setFormData({ ...formData, study: e.target.value })}
                                 required
                             /&gt;
                         &lt;/div&gt;
                         &lt;div className="space-y-2"&gt;
-                            &lt;Label htmlFor="password"&gt;Password&lt;/Label&gt;
+                            &lt;Label htmlFor="password"&gt;Wachtwoord&lt;/Label&gt;
                             &lt;Input
                                 id="password"
                                 type="password"
@@ -410,7 +410,7 @@ export function RegisterPage() {
                             /&gt;
                         &lt;/div&gt;
                         &lt;div className="space-y-2"&gt;
-                            &lt;Label htmlFor="confirmPassword"&gt;Confirm Password&lt;/Label&gt;
+                            &lt;Label htmlFor="confirmPassword"&gt;Bevestig wachtwoord&lt;/Label&gt;
                             &lt;Input
                                 id="confirmPassword"
                                 type="password"
@@ -421,12 +421,12 @@ export function RegisterPage() {
                         &lt;/div&gt;
                         {error &amp;&amp; &lt;p className="text-sm text-red-600"&gt;{error}&lt;/p&gt;}
                         &lt;Button type="submit" className="w-full" disabled={loading}&gt;
-                            {loading ? 'Creating account...' : 'Sign up'}
+                            {loading ? 'Account aanmaken...' : 'Registreren'}
                         &lt;/Button&gt;
                         &lt;p className="text-center text-sm text-gray-600"&gt;
-                            Already have an account?{' '}
+                            Al een account?{' '}
                             &lt;Link to="/login" className="text-blue-600 hover:underline"&gt;
-                                Sign in
+                                Inloggen
                             &lt;/Link&gt;
                         &lt;/p&gt;
                     &lt;/form&gt;
@@ -442,7 +442,7 @@ export function RegisterPage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-10T12:49:33.327Z
+                at 2025-10-12T15:51:04.246Z
             </div>
         <script src="../prettify.js"></script>
         <script>

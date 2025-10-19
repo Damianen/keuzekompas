@@ -31,31 +31,31 @@ export function Header() {
                 to="/about"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                About
+                Over
               </Link>
             </nav>
           </div>
           <div className="flex items-center space-x-3">
             <Button variant="ghost" size="icon" className="md:hidden">
               <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle menu</span>
+              <span className="sr-only">Menu openen</span>
             </Button>
             {isAuthenticated ? (
               <>
                 <Button variant="ghost" asChild className="hidden md:inline-flex">
-                  <Link to="/profile">{user?.name || 'Profile'}</Link>
+                  <Link to="/profile">{user?.name || 'Profiel'}</Link>
                 </Button>
                 <Button variant="outline" onClick={logout} className="hidden md:inline-flex">
-                  Logout
+                  Uitloggen
                 </Button>
               </>
             ) : (
               <>
                 <Button variant="ghost" asChild className="hidden md:inline-flex">
-                  <Link to="/login">Login</Link>
+                  <Link to="/login">Inloggen</Link>
                 </Button>
                 <Button asChild className="hidden md:inline-flex rounded-xl">
-                  <Link to="/register">Sign Up</Link>
+                  <Link to="/register">Registreren</Link>
                 </Button>
               </>
             )}

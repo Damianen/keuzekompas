@@ -92,7 +92,7 @@ export function ModulesPage() {
     });
 
     if (loading) {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>;
+        return <div className="container mx-auto px-4 py-8">Laden...</div>;
     }
 
     return (
@@ -102,14 +102,14 @@ export function ModulesPage() {
                     <h1 className="text-3xl font-bold">Modules</h1>
                     {user?.role === 2 && (
                         <Button asChild>
-                            <Link to="/modules/new">Add Module</Link>
+                            <Link to="/modules/new">Module toevoegen</Link>
                         </Button>
                     )}
                 </div>
                 <div className="space-y-4">
                     <Input
                         type="search"
-                        placeholder="Search modules..."
+                        placeholder="Zoek modules..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="max-w-md"
@@ -118,10 +118,10 @@ export function ModulesPage() {
                     <div className="flex flex-wrap gap-4">
                         <Select value={filterProvider} onValueChange={setFilterProvider}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Provider" />
+                                <SelectValue placeholder="Aanbieder" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Providers</SelectItem>
+                                <SelectItem value="all">Alle aanbieders</SelectItem>
                                 {uniqueProviders.map(provider => (
                                     <SelectItem key={provider} value={provider}>{provider}</SelectItem>
                                 ))}
@@ -130,10 +130,10 @@ export function ModulesPage() {
 
                         <Select value={filterLevel} onValueChange={setFilterLevel}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Level" />
+                                <SelectValue placeholder="Niveau" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Levels</SelectItem>
+                                <SelectItem value="all">Alle niveaus</SelectItem>
                                 {uniqueLevels.map(level => (
                                     <SelectItem key={level} value={level}>{level}</SelectItem>
                                 ))}
@@ -142,10 +142,10 @@ export function ModulesPage() {
 
                         <Select value={filterLanguage} onValueChange={setFilterLanguage}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Language" />
+                                <SelectValue placeholder="Taal" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Languages</SelectItem>
+                                <SelectItem value="all">Alle talen</SelectItem>
                                 {uniqueLanguages.map(language => (
                                     <SelectItem key={language} value={language}>{language}</SelectItem>
                                 ))}
@@ -154,10 +154,10 @@ export function ModulesPage() {
 
                         <Select value={filterLocation} onValueChange={setFilterLocation}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Location" />
+                                <SelectValue placeholder="Locatie" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Locations</SelectItem>
+                                <SelectItem value="all">Alle locaties</SelectItem>
                                 {uniqueLocations.map(location => (
                                     <SelectItem key={location} value={location}>{location}</SelectItem>
                                 ))}
@@ -166,12 +166,12 @@ export function ModulesPage() {
 
                         <Select value={filterPeriod} onValueChange={setFilterPeriod}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Period" />
+                                <SelectValue placeholder="Periode" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="all">All Periods</SelectItem>
+                                <SelectItem value="all">Alle periodes</SelectItem>
                                 {uniquePeriods.map(period => (
-                                    <SelectItem key={period} value={period.toString()}>Period {period}</SelectItem>
+                                    <SelectItem key={period} value={period.toString()}>Periode {period}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
@@ -187,7 +187,7 @@ export function ModulesPage() {
                                     setFilterPeriod('all');
                                 }}
                             >
-                                Clear Filters
+                                Filters wissen
                             </Button>
                         )}
                     </div>
@@ -209,23 +209,23 @@ export function ModulesPage() {
                                 <div className="flex flex-wrap gap-2 text-xs text-gray-600">
                                     <span>{module.location}</span>
                                     <span>•</span>
-                                    <span>{module.duration} weeks</span>
+                                    <span>{module.duration} weken</span>
                                     <span>•</span>
                                     <span>{module.language}</span>
                                     <span>•</span>
-                                    <span>Period {module.period}</span>
+                                    <span>Periode {module.period}</span>
                                 </div>
                             </div>
                             <div className="flex gap-2">
                                 <Button asChild variant="outline" className="flex-1">
-                                    <Link to={`/modules/${module.id}`}>View Details</Link>
+                                    <Link to={`/modules/${module.id}`}>Bekijk details</Link>
                                 </Button>
                                 {user && (
                                     <Button
                                         variant={favoriteModuleIds.has(module.id) ? "default" : "ghost"}
                                         size="icon"
                                         onClick={() => handleToggleFavorite(module.id)}
-                                        title={favoriteModuleIds.has(module.id) ? "Remove from favorites" : "Add to favorites"}
+                                        title={favoriteModuleIds.has(module.id) ? "Verwijder uit favorieten" : "Toevoegen aan favorieten"}
                                     >
                                         {favoriteModuleIds.has(module.id) ? "♥" : "♡"}
                                     </Button>
@@ -238,7 +238,7 @@ export function ModulesPage() {
 
             {filteredModules.length === 0 && (
                 <div className="text-center py-12">
-                    <p className="text-gray-500">No modules found</p>
+                    <p className="text-gray-500">Geen modules gevonden</p>
                 </div>
             )}
         </div>

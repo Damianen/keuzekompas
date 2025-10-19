@@ -79,20 +79,20 @@ export function ModuleFormPage() {
         <div className="container mx-auto px-4 py-8 mt-10">
             <div className="max-w-2xl mx-auto">
                 <Button variant="ghost" asChild className="mb-4">
-                    <Link to="/modules">← Back to Modules</Link>
+                    <Link to="/modules">← Terug naar Modules</Link>
                 </Button>
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>{isEditing ? 'Edit Module' : 'Create New Module'}</CardTitle>
+                        <CardTitle>{isEditing ? 'Bewerk Module' : 'Nieuwe Module Aanmaken'}</CardTitle>
                         <CardDescription>
-                            {isEditing ? 'Update module information' : 'Add a new module to the catalog'}
+                            {isEditing ? 'Werk module informatie bij' : 'Voeg een nieuwe module toe aan de catalogus'}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="name">Module Name</Label>
+                                <Label htmlFor="name">Modulenaam</Label>
                                 <Input
                                     id="name"
                                     value={formData.name}
@@ -103,7 +103,7 @@ export function ModuleFormPage() {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="provider">Provider</Label>
+                                    <Label htmlFor="provider">Aanbieder</Label>
                                     <Input
                                         id="provider"
                                         value={formData.provider}
@@ -112,12 +112,12 @@ export function ModuleFormPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="level">Level</Label>
+                                    <Label htmlFor="level">Niveau</Label>
                                     <Input
                                         id="level"
                                         value={formData.level}
                                         onChange={(e) => updateField('level', e.target.value)}
-                                        placeholder="e.g., Bachelor, Master"
+                                        placeholder="bijv. Bachelor, Master"
                                         required
                                     />
                                 </div>
@@ -125,7 +125,7 @@ export function ModuleFormPage() {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="location">Location</Label>
+                                    <Label htmlFor="location">Locatie</Label>
                                     <Input
                                         id="location"
                                         value={formData.location}
@@ -134,7 +134,7 @@ export function ModuleFormPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="language">Language</Label>
+                                    <Label htmlFor="language">Taal</Label>
                                     <Input
                                         id="language"
                                         value={formData.language}
@@ -146,7 +146,7 @@ export function ModuleFormPage() {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="period">Period</Label>
+                                    <Label htmlFor="period">Periode</Label>
                                     <Input
                                         id="period"
                                         type="number"
@@ -158,7 +158,7 @@ export function ModuleFormPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label htmlFor="duration">Duration (weeks)</Label>
+                                    <Label htmlFor="duration">Duur (weken)</Label>
                                     <Input
                                         id="duration"
                                         type="number"
@@ -171,7 +171,7 @@ export function ModuleFormPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="description">Description</Label>
+                                <Label htmlFor="description">Beschrijving</Label>
                                 <textarea
                                     id="description"
                                     className="w-full min-h-24 px-3 py-2 border rounded-md"
@@ -182,7 +182,7 @@ export function ModuleFormPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="information">Additional Information</Label>
+                                <Label htmlFor="information">Aanvullende Informatie</Label>
                                 <textarea
                                     id="information"
                                     className="w-full min-h-32 px-3 py-2 border rounded-md"
@@ -196,10 +196,10 @@ export function ModuleFormPage() {
 
                             <div className="flex gap-2">
                                 <Button type="submit" disabled={loading}>
-                                    {loading ? 'Saving...' : isEditing ? 'Update Module' : 'Create Module'}
+                                    {loading ? 'Opslaan...' : isEditing ? 'Bijwerken' : 'Aanmaken'}
                                 </Button>
                                 <Button type="button" variant="outline" asChild>
-                                    <Link to="/modules">Cancel</Link>
+                                    <Link to="/modules">Annuleren</Link>
                                 </Button>
                             </div>
                         </form>

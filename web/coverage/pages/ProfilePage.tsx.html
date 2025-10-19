@@ -511,7 +511,7 @@ export function ProfilePage() {
     };
 &nbsp;
     if (!user) {
-        return &lt;div&gt;Loading...&lt;/div&gt;;
+        return &lt;div&gt;Laden...&lt;/div&gt;;
     }
 &nbsp;
     return (
@@ -519,14 +519,14 @@ export function ProfilePage() {
             &lt;div className="max-w-4xl mx-auto space-y-8"&gt;
                 &lt;Card&gt;
                     &lt;CardHeader&gt;
-                        &lt;CardTitle&gt;Profile&lt;/CardTitle&gt;
-                        &lt;CardDescription&gt;Manage your account information&lt;/CardDescription&gt;
+                        &lt;CardTitle&gt;Profiel&lt;/CardTitle&gt;
+                        &lt;CardDescription&gt;Beheer je accountgegevens&lt;/CardDescription&gt;
                     &lt;/CardHeader&gt;
                     &lt;CardContent&gt;
                         {editing ? (
                             &lt;form onSubmit={handleSubmit} className="space-y-4"&gt;
                                 &lt;div className="space-y-2"&gt;
-                                    &lt;Label htmlFor="name"&gt;Name&lt;/Label&gt;
+                                    &lt;Label htmlFor="name"&gt;Naam&lt;/Label&gt;
                                     &lt;Input
                                         id="name"
                                         value={formData.name}
@@ -534,7 +534,7 @@ export function ProfilePage() {
                                     /&gt;
                                 &lt;/div&gt;
                                 &lt;div className="space-y-2"&gt;
-                                    &lt;Label htmlFor="email"&gt;Email&lt;/Label&gt;
+                                    &lt;Label htmlFor="email"&gt;E-mail&lt;/Label&gt;
                                     &lt;Input
                                         id="email"
                                         type="email"
@@ -543,7 +543,7 @@ export function ProfilePage() {
                                     /&gt;
                                 &lt;/div&gt;
                                 &lt;div className="space-y-2"&gt;
-                                    &lt;Label htmlFor="study"&gt;Study Program&lt;/Label&gt;
+                                    &lt;Label htmlFor="study"&gt;Studieprogramma&lt;/Label&gt;
                                     &lt;Input
                                         id="study"
                                         value={formData.study}
@@ -553,35 +553,35 @@ export function ProfilePage() {
                                 {<span class="branch-0 cbranch-no" title="branch not covered" >error &amp;&amp; &lt;p className="text-sm text-red-600"&gt;{error}&lt;/p&gt;}</span>
                                 &lt;div className="flex gap-2"&gt;
                                     &lt;Button type="submit" disabled={loading}&gt;
-                                        {loading ? 'Saving...' : 'Save'}
+                                        {loading ? 'Opslaan...' : 'Opslaan'}
                                     &lt;/Button&gt;
                                     &lt;Button type="button" variant="outline" onClick={<span class="fstat-no" title="function not covered" >() =&gt; setEditing(false)}&gt;</span>
-                                        Cancel
+                                        Annuleren
                                     &lt;/Button&gt;
                                 &lt;/div&gt;
                             &lt;/form&gt;
                         ) : (
                             &lt;div className="space-y-4"&gt;
                                 &lt;div&gt;
-                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Name&lt;/p&gt;
+                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Naam&lt;/p&gt;
                                     &lt;p className="text-base"&gt;{user.name}&lt;/p&gt;
                                 &lt;/div&gt;
                                 &lt;div&gt;
-                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Email&lt;/p&gt;
+                                    &lt;p className="text-sm font-medium text-gray-500"&gt;E-mail&lt;/p&gt;
                                     &lt;p className="text-base"&gt;{user.email}&lt;/p&gt;
                                 &lt;/div&gt;
                                 &lt;div&gt;
-                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Study Program&lt;/p&gt;
+                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Studieprogramma&lt;/p&gt;
                                     &lt;p className="text-base"&gt;{user.study}&lt;/p&gt;
                                 &lt;/div&gt;
                                 &lt;div&gt;
-                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Role&lt;/p&gt;
-                                    &lt;p className="text-base"&gt;{user.role === <span class="branch-0 cbranch-no" title="branch not covered" >2 ? 'Admin' : '</span>Student'}&lt;/p&gt;
+                                    &lt;p className="text-sm font-medium text-gray-500"&gt;Rol&lt;/p&gt;
+                                    &lt;p className="text-base"&gt;{user.role === <span class="branch-0 cbranch-no" title="branch not covered" >2 ? 'Beheerder' : '</span>Student'}&lt;/p&gt;
                                 &lt;/div&gt;
                                 &lt;div className="flex gap-2"&gt;
-                                    &lt;Button onClick={() =&gt; setEditing(true)}&gt;Edit Profile&lt;/Button&gt;
+                                    &lt;Button onClick={() =&gt; setEditing(true)}&gt;Bewerk Profiel&lt;/Button&gt;
                                     &lt;Button variant="outline" onClick={logout}&gt;
-                                        Logout
+                                        Uitloggen
                                     &lt;/Button&gt;
                                 &lt;/div&gt;
                             &lt;/div&gt;
@@ -591,12 +591,12 @@ export function ProfilePage() {
 &nbsp;
                 &lt;Card&gt;
                     &lt;CardHeader&gt;
-                        &lt;CardTitle&gt;Favorite Modules&lt;/CardTitle&gt;
-                        &lt;CardDescription&gt;Your saved modules&lt;/CardDescription&gt;
+                        &lt;CardTitle&gt;Favoriete Modules&lt;/CardTitle&gt;
+                        &lt;CardDescription&gt;Je opgeslagen modules&lt;/CardDescription&gt;
                     &lt;/CardHeader&gt;
                     &lt;CardContent&gt;
                         {favorites.length === 0 ? (
-                            &lt;p className="text-gray-500"&gt;No favorites yet&lt;/p&gt;
+                            &lt;p className="text-gray-500"&gt;Nog geen favorieten&lt;/p&gt;
                         ) : (
                             &lt;div className="space-y-2"&gt;
                                 {favorites.map((module) =&gt; (
@@ -607,7 +607,7 @@ export function ProfilePage() {
                                         &lt;div&gt;
                                             &lt;p className="font-medium"&gt;{module.name}&lt;/p&gt;
                                             &lt;p className="text-sm text-gray-500"&gt;
-                                                {module.provider} • {module.level} • {module.duration} weeks
+                                                {module.provider} • {module.level} • {module.duration} weken
                                             &lt;/p&gt;
                                         &lt;/div&gt;
                                         &lt;Button
@@ -615,7 +615,7 @@ export function ProfilePage() {
                                             size="sm"
                                             onClick={() =&gt; handleRemoveFavorite(module.id)}
                                         &gt;
-                                            Remove
+                                            Verwijderen
                                         &lt;/Button&gt;
                                     &lt;/div&gt;
                                 ))}
@@ -634,7 +634,7 @@ export function ProfilePage() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-10T12:49:33.327Z
+                at 2025-10-12T15:51:04.246Z
             </div>
         <script src="../prettify.js"></script>
         <script>

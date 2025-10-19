@@ -99,7 +99,7 @@ describe('ModulesPage', () => {
 
     await waitFor(() => screen.getByText('Advanced Programming'));
 
-    const searchInput = screen.getByPlaceholderText(/search modules/i);
+    const searchInput = screen.getByPlaceholderText(/zoek modules/i);
     await user.type(searchInput, 'Advanced');
 
     expect(screen.getByText('Advanced Programming')).toBeDefined();
@@ -136,7 +136,7 @@ describe('ModulesPage', () => {
     await waitFor(() => screen.getByText('Advanced Programming'));
 
     // Apply a search filter
-    const searchInput = screen.getByPlaceholderText(/search modules/i);
+    const searchInput = screen.getByPlaceholderText(/zoek modules/i);
     await user.type(searchInput, 'Advanced');
 
     // Clear filters button should appear (though search doesn't trigger it in current implementation)
@@ -154,7 +154,7 @@ describe('ModulesPage', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText('Loading...')).toBeDefined();
+    expect(screen.getByText('Laden...')).toBeDefined();
   });
 
   it('should show no modules message when filtered list is empty', async () => {
@@ -170,10 +170,10 @@ describe('ModulesPage', () => {
 
     await waitFor(() => screen.getByText('Advanced Programming'));
 
-    const searchInput = screen.getByPlaceholderText(/search modules/i);
+    const searchInput = screen.getByPlaceholderText(/zoek modules/i);
     await user.type(searchInput, 'NonexistentModule');
 
-    expect(screen.getByText('No modules found')).toBeDefined();
+    expect(screen.getByText('Geen modules gevonden')).toBeDefined();
   });
 
   it('should handle favorite toggle for authenticated users', async () => {
@@ -210,7 +210,7 @@ describe('ModulesPage', () => {
     await waitFor(() => screen.getByText('Advanced Programming'));
 
     // Find favorite buttons (hearts)
-    const favoriteButtons = screen.getAllByTitle(/add to favorites/i);
+    const favoriteButtons = screen.getAllByTitle(/toevoegen aan favorieten/i);
     await user.click(favoriteButtons[0]);
 
     await waitFor(() => {
