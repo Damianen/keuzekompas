@@ -39,8 +39,8 @@ export interface UserWithFavoritesDto extends UserResponseDto {
 export interface ModuleSummaryDto {
     id: string;
     name: string;
-    provider: string;
     level: string;
+    studycredit: number;
 }
 
 export interface AuthResponseDto {

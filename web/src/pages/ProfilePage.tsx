@@ -166,7 +166,7 @@ export function ProfilePage() {
                                         <div>
                                             <p className="font-medium">{module.name}</p>
                                             <p className="text-sm text-gray-500">
-                                                {module.provider} • {module.level} • {module.duration} weken
+                                                {module.level} • {module.studycredit} EC
                                             </p>
                                         </div>
                                         <Button

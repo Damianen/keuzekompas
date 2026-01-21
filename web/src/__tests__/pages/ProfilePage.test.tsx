@@ -128,13 +128,8 @@ describe('ProfilePage', () => {
       {
         id: 'module1',
         name: 'Test Module',
-        provider: 'Test Provider',
         level: 'Bachelor',
-        duration: 8,
-        language: 'English',
-        location: 'Online',
-        period: 'Fall',
-        credits: 5,
+        studycredit: 5,
       },
     ];
 
@@ -153,7 +148,7 @@ describe('ProfilePage', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Test Module')).toBeDefined();
-      expect(screen.getByText(/Test Provider/)).toBeDefined();
+      expect(screen.getByText(/Bachelor/)).toBeDefined();
     });
   });
 
@@ -163,13 +158,8 @@ describe('ProfilePage', () => {
       {
         id: 'module1',
         name: 'Test Module',
-        provider: 'Test Provider',
         level: 'Bachelor',
-        duration: 8,
-        language: 'English',
-        location: 'Online',
-        period: 'Fall',
-        credits: 5,
+        studycredit: 5,
       },
     ];
 

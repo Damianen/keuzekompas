@@ -1,13 +1,12 @@
 export type Module = {
     id?: string;
     name: string;
-    location: string;
-    period: number;
-    provider: string;
-    duration: number;
-    language: string;
-    level: string;
+    shortdescription: string;
     description: string;
-    information: string;
-    createdAt: Date;
+    content: string;
+    studycredit: number;
+    location: string;
+    contact_id: number;
+    level: string;
+    learningoutcomes: string;
 }

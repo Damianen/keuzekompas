@@ -53,48 +53,46 @@ export interface AuthResponse {
 export interface Module {
   id: string;
   name: string;
-  location: string;
-  period: number;
-  provider: string;
-  duration: number;
-  language: string;
-  level: string;
+  shortdescription: string;
   description: string;
-  information: string;
-  createdAt: Date;
+  content: string;
+  studycredit: number;
+  location: string;
+  contact_id: number;
+  level: string;
+  learningoutcomes: string;
 }
 
 export interface ModuleSummary {
   id: string;
   name: string;
-  provider: string;
   level: string;
-  duration: number;
+  studycredit: number;
 }
 
 export interface CreateModuleDto {
   name: string;
-  location: string;
-  period: number;
-  provider: string;
-  duration: number;
-  language: string;
-  level: string;
+  shortdescription: string;
   description: string;
-  information: string;
+  content: string;
+  studycredit: number;
+  location: string;
+  contact_id: number;
+  level: string;
+  learningoutcomes: string;
 }
 
 export interface UpdateModuleDto {
   id: string;
   name?: string;
-  location?: string;
-  period?: number;
-  provider?: string;
-  duration?: number;
-  language?: string;
-  level?: string;
+  shortdescription?: string;
   description?: string;
-  information?: string;
+  content?: string;
+  studycredit?: number;
+  location?: string;
+  contact_id?: number;
+  level?: string;
+  learningoutcomes?: string;
 }
 
 export interface ModuleList {

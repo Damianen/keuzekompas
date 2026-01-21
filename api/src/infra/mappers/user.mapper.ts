@@ -37,14 +37,13 @@ export function moduleDocToModule(doc: ModuleDoc): Module {
     return {
         id: doc._id.toString(),
         name: doc.name!,
-        location: doc.location!,
-        period: doc.period!,
-        provider: doc.provider!,
-        duration: doc.duration!,
-        language: doc.language!,
-        level: doc.level!,
+        shortdescription: doc.shortdescription!,
         description: doc.description!,
-        information: doc.information!,
-        createdAt: doc.createdAt!,
+        content: doc.content!,
+        studycredit: doc.studycredit!,
+        location: doc.location!,
+        contact_id: doc.contact_id!,
+        level: doc.level!,
+        learningoutcomes: doc.learningoutcomes!,
     };
 }

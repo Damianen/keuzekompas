@@ -34,14 +34,14 @@ describe('ModuleController', () => {
     it('should create a new module successfully', async () => {
       const moduleData = {
         name: 'Advanced Programming',
-        location: 'Campus A',
-        period: 1,
-        provider: 'University X',
-        duration: 8,
-        language: 'English',
-        level: 'Bachelor',
+        shortdescription: 'A course on advanced programming',
         description: 'Learn advanced programming',
-        information: 'Additional info',
+        content: 'Topics include design patterns',
+        studycredit: 5,
+        location: 'Campus A',
+        contact_id: 1,
+        level: 'Bachelor',
+        learningoutcomes: 'Students will learn advanced concepts',
       };
 
       mockContext.req.json.mockResolvedValue(moduleData);
@@ -64,14 +64,14 @@ describe('ModuleController', () => {
     it('should handle creation failure', async () => {
       const moduleData = {
         name: 'Test Module',
-        location: 'Campus A',
-        period: 1,
-        provider: 'University X',
-        duration: 8,
-        language: 'English',
-        level: 'Bachelor',
+        shortdescription: 'Short description',
         description: 'Description',
-        information: 'Info',
+        content: 'Content',
+        studycredit: 5,
+        location: 'Campus A',
+        contact_id: 1,
+        level: 'Bachelor',
+        learningoutcomes: 'Outcomes',
       };
 
       mockContext.req.json.mockResolvedValue(moduleData);
@@ -96,15 +96,14 @@ describe('ModuleController', () => {
       const module: Module = {
         id: 'module123',
         name: 'Advanced Programming',
-        location: 'Campus A',
-        period: 1,
-        provider: 'University X',
-        duration: 8,
-        language: 'English',
-        level: 'Bachelor',
+        shortdescription: 'A course on advanced programming',
         description: 'Learn advanced programming',
-        information: 'Additional info',
-        createdAt: new Date(),
+        content: 'Topics include design patterns',
+        studycredit: 5,
+        location: 'Campus A',
+        contact_id: 1,
+        level: 'Bachelor',
+        learningoutcomes: 'Students will learn advanced concepts',
       };
 
       mockContext.req.param.mockReturnValue('module123');
@@ -146,28 +145,26 @@ describe('ModuleController', () => {
         {
           id: 'module1',
           name: 'Module 1',
-          location: 'Campus A',
-          period: 1,
-          provider: 'University X',
-          duration: 8,
-          language: 'English',
-          level: 'Bachelor',
+          shortdescription: 'Short description 1',
           description: 'Description 1',
-          information: 'Info 1',
-          createdAt: new Date(),
+          content: 'Content 1',
+          studycredit: 5,
+          location: 'Campus A',
+          contact_id: 1,
+          level: 'Bachelor',
+          learningoutcomes: 'Outcomes 1',
         },
         {
           id: 'module2',
           name: 'Module 2',
-          location: 'Campus B',
-          period: 2,
-          provider: 'University Y',
-          duration: 10,
-          language: 'Dutch',
-          level: 'Master',
+          shortdescription: 'Short description 2',
           description: 'Description 2',
-          information: 'Info 2',
-          createdAt: new Date(),
+          content: 'Content 2',
+          studycredit: 6,
+          location: 'Campus B',
+          contact_id: 2,
+          level: 'Master',
+          learningoutcomes: 'Outcomes 2',
         },
       ];
 

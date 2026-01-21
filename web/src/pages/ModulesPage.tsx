@@ -14,11 +14,8 @@ export function ModulesPage() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [favoriteModuleIds, setFavoriteModuleIds] = useState<Set<string>>(new Set());
-    const [filterProvider, setFilterProvider] = useState<string>('all');
     const [filterLevel, setFilterLevel] = useState<string>('all');
-    const [filterLanguage, setFilterLanguage] = useState<string>('all');
     const [filterLocation, setFilterLocation] = useState<string>('all');
-    const [filterPeriod, setFilterPeriod] = useState<string>('all');
 
     const loadModules = async () => {
         try {
@@ -70,25 +67,19 @@ export function ModulesPage() {
     };
 
     // Get unique values for filters
-    const uniqueProviders = Array.from(new Set(modules.map(m => m.provider))).sort();
     const uniqueLevels = Array.from(new Set(modules.map(m => m.level))).sort();
-    const uniqueLanguages = Array.from(new Set(modules.map(m => m.language))).sort();
     const uniqueLocations = Array.from(new Set(modules.map(m => m.location))).sort();
-    const uniquePeriods = Array.from(new Set(modules.map(m => m.period))).sort((a, b) => a - b);
 
     const filteredModules = modules.filter((module) => {
         const matchesSearch =
             module.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            module.provider.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            module.shortdescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
             module.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-        const matchesProvider = filterProvider === 'all' || module.provider === filterProvider;
         const matchesLevel = filterLevel === 'all' || module.level === filterLevel;
-        const matchesLanguage = filterLanguage === 'all' || module.language === filterLanguage;
         const matchesLocation = filterLocation === 'all' || module.location === filterLocation;
-        const matchesPeriod = filterPeriod === 'all' || module.period.toString() === filterPeriod;
 
-        return matchesSearch && matchesProvider && matchesLevel && matchesLanguage && matchesLocation && matchesPeriod;
+        return matchesSearch && matchesLevel && matchesLocation;
     });
 
     if (loading) {
@@ -116,18 +107,6 @@ export function ModulesPage() {
                     />
 
                     <div className="flex flex-wrap gap-4">
-                        <Select value={filterProvider} onValueChange={setFilterProvider}>
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Aanbieder" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">Alle aanbieders</SelectItem>
-                                {uniqueProviders.map(provider => (
-                                    <SelectItem key={provider} value={provider}>{provider}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-
                         <Select value={filterLevel} onValueChange={setFilterLevel}>
                             <SelectTrigger className="w-[180px]">
                                 <SelectValue placeholder="Niveau" />
@@ -136,18 +115,6 @@ export function ModulesPage() {
                                 <SelectItem value="all">Alle niveaus</SelectItem>
                                 {uniqueLevels.map(level => (
                                     <SelectItem key={level} value={level}>{level}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-
-                        <Select value={filterLanguage} onValueChange={setFilterLanguage}>
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Taal" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">Alle talen</SelectItem>
-                                {uniqueLanguages.map(language => (
-                                    <SelectItem key={language} value={language}>{language}</SelectItem>
                                 ))}
                             </SelectContent>
                         </Select>
@@ -164,27 +131,12 @@ export function ModulesPage() {
                             </SelectContent>
                         </Select>
 
-                        <Select value={filterPeriod} onValueChange={setFilterPeriod}>
-                            <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Periode" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">Alle periodes</SelectItem>
-                                {uniquePeriods.map(period => (
-                                    <SelectItem key={period} value={period.toString()}>Periode {period}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-
-                        {(filterProvider !== 'all' || filterLevel !== 'all' || filterLanguage !== 'all' || filterLocation !== 'all' || filterPeriod !== 'all') && (
+                        {(filterLevel !== 'all' || filterLocation !== 'all') && (
                             <Button
                                 variant="outline"
                                 onClick={() => {
-                                    setFilterProvider('all');
                                     setFilterLevel('all');
-                                    setFilterLanguage('all');
                                     setFilterLocation('all');
-                                    setFilterPeriod('all');
                                 }}
                             >
                                 Filters wissen
@@ -200,20 +152,14 @@ export function ModulesPage() {
                         <CardHeader>
                             <CardTitle>{module.name}</CardTitle>
                             <CardDescription>
-                                {module.provider} • {module.level}
+                                {module.level} • {module.studycredit} EC
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="flex-1">
                             <div className="space-y-2 mb-4">
-                                <p className="text-sm line-clamp-3">{module.description}</p>
+                                <p className="text-sm line-clamp-3">{module.shortdescription}</p>
                                 <div className="flex flex-wrap gap-2 text-xs text-gray-600">
                                     <span>{module.location}</span>
-                                    <span>•</span>
-                                    <span>{module.duration} weken</span>
-                                    <span>•</span>
-                                    <span>{module.language}</span>
-                                    <span>•</span>
-                                    <span>Periode {module.period}</span>
                                 </div>
                             </div>
                             <div className="flex gap-2">

@@ -150,8 +150,8 @@ export class UserController {
             const favorites: ModuleSummaryDto[] = result.value.map(module => ({
                 id: module.id!,
                 name: module.name,
-                provider: module.provider,
-                level: module.level
+                level: module.level,
+                studycredit: module.studycredit
             }));
 
             return ResSuccess(c, favorites);

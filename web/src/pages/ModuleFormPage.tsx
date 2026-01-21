@@ -14,14 +14,14 @@ export function ModuleFormPage() {
 
     const [formData, setFormData] = useState<CreateModuleDto>({
         name: '',
-        location: '',
-        period: 1,
-        provider: '',
-        duration: 1,
-        language: '',
-        level: '',
+        shortdescription: '',
         description: '',
-        information: '',
+        content: '',
+        studycredit: 5,
+        location: '',
+        contact_id: 1,
+        level: '',
+        learningoutcomes: '',
     });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -38,14 +38,14 @@ export function ModuleFormPage() {
             const module = response.data;
             setFormData({
                 name: module.name,
-                location: module.location,
-                period: module.period,
-                provider: module.provider,
-                duration: module.duration,
-                language: module.language,
-                level: module.level,
+                shortdescription: module.shortdescription,
                 description: module.description,
-                information: module.information,
+                content: module.content,
+                studycredit: module.studycredit,
+                location: module.location,
+                contact_id: module.contact_id,
+                level: module.level,
+                learningoutcomes: module.learningoutcomes,
             });
         } catch (err) {
             console.error('Failed to load module:', err);
@@ -103,15 +103,6 @@ export function ModuleFormPage() {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="provider">Aanbieder</Label>
-                                    <Input
-                                        id="provider"
-                                        value={formData.provider}
-                                        onChange={(e) => updateField('provider', e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
                                     <Label htmlFor="level">Niveau</Label>
                                     <Input
                                         id="level"
@@ -121,9 +112,6 @@ export function ModuleFormPage() {
                                         required
                                     />
                                 </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="location">Locatie</Label>
                                     <Input
@@ -133,41 +121,43 @@ export function ModuleFormPage() {
                                         required
                                     />
                                 </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label htmlFor="language">Taal</Label>
+                                    <Label htmlFor="studycredit">Studiepunten (EC)</Label>
                                     <Input
-                                        id="language"
-                                        value={formData.language}
-                                        onChange={(e) => updateField('language', e.target.value)}
+                                        id="studycredit"
+                                        type="number"
+                                        min="1"
+                                        max="60"
+                                        value={formData.studycredit}
+                                        onChange={(e) => updateField('studycredit', parseInt(e.target.value))}
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="contact_id">Contact ID</Label>
+                                    <Input
+                                        id="contact_id"
+                                        type="number"
+                                        min="1"
+                                        value={formData.contact_id}
+                                        onChange={(e) => updateField('contact_id', parseInt(e.target.value))}
                                         required
                                     />
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="period">Periode</Label>
-                                    <Input
-                                        id="period"
-                                        type="number"
-                                        min="1"
-                                        max="4"
-                                        value={formData.period}
-                                        onChange={(e) => updateField('period', parseInt(e.target.value))}
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="duration">Duur (weken)</Label>
-                                    <Input
-                                        id="duration"
-                                        type="number"
-                                        min="1"
-                                        value={formData.duration}
-                                        onChange={(e) => updateField('duration', parseInt(e.target.value))}
-                                        required
-                                    />
-                                </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="shortdescription">Korte Beschrijving</Label>
+                                <textarea
+                                    id="shortdescription"
+                                    className="w-full min-h-20 px-3 py-2 border rounded-md"
+                                    value={formData.shortdescription}
+                                    onChange={(e) => updateField('shortdescription', e.target.value)}
+                                    required
+                                />
                             </div>
 
                             <div className="space-y-2">
@@ -182,12 +172,23 @@ export function ModuleFormPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="information">Aanvullende Informatie</Label>
+                                <Label htmlFor="content">Inhoud</Label>
                                 <textarea
-                                    id="information"
+                                    id="content"
                                     className="w-full min-h-32 px-3 py-2 border rounded-md"
-                                    value={formData.information}
-                                    onChange={(e) => updateField('information', e.target.value)}
+                                    value={formData.content}
+                                    onChange={(e) => updateField('content', e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="learningoutcomes">Leeruitkomsten</Label>
+                                <textarea
+                                    id="learningoutcomes"
+                                    className="w-full min-h-32 px-3 py-2 border rounded-md"
+                                    value={formData.learningoutcomes}
+                                    onChange={(e) => updateField('learningoutcomes', e.target.value)}
                                     required
                                 />
                             </div>

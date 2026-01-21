@@ -22,26 +22,26 @@ export const updateUserSchema = z.object({
 
 export const createModuleSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters").max(200, "Name must be no more than 200 characters"),
+    shortdescription: z.string().min(10, "Short description must be at least 10 characters").max(500, "Short description must be no more than 500 characters"),
+    description: z.string().min(10, "Description must be at least 10 characters").max(2000, "Description must be no more than 2000 characters"),
+    content: z.string().min(10, "Content must be at least 10 characters").max(5000, "Content must be no more than 5000 characters"),
+    studycredit: z.number().min(1, "Study credit must be at least 1").max(60, "Study credit must be no more than 60"),
     location: z.string().min(2, "Location must be at least 2 characters").max(100, "Location must be no more than 100 characters"),
-    period: z.number().min(1, "Period must be at least 1").max(12, "Period must be no more than 12"),
-    provider: z.string().min(2, "Provider must be at least 2 characters").max(100, "Provider must be no more than 100 characters"),
-    duration: z.number().min(1, "Duration must be at least 1").max(1000, "Duration must be no more than 1000"),
-    language: z.string().min(2, "Language must be at least 2 characters").max(50, "Language must be no more than 50 characters"),
+    contact_id: z.number().min(1, "Contact ID must be at least 1"),
     level: z.string().min(1, "Level must be at least 1 character").max(50, "Level must be no more than 50 characters"),
-    description: z.string().min(10, "Description must be at least 10 characters").max(1000, "Description must be no more than 1000 characters"),
-    information: z.string().min(10, "Information must be at least 10 characters").max(2000, "Information must be no more than 2000 characters")
+    learningoutcomes: z.string().min(10, "Learning outcomes must be at least 10 characters").max(3000, "Learning outcomes must be no more than 3000 characters")
 });
 
 export const updateModuleSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters").max(200, "Name must be no more than 200 characters").optional(),
+    shortdescription: z.string().min(10, "Short description must be at least 10 characters").max(500, "Short description must be no more than 500 characters").optional(),
+    description: z.string().min(10, "Description must be at least 10 characters").max(2000, "Description must be no more than 2000 characters").optional(),
+    content: z.string().min(10, "Content must be at least 10 characters").max(5000, "Content must be no more than 5000 characters").optional(),
+    studycredit: z.number().min(1, "Study credit must be at least 1").max(60, "Study credit must be no more than 60").optional(),
     location: z.string().min(2, "Location must be at least 2 characters").max(100, "Location must be no more than 100 characters").optional(),
-    period: z.number().min(1, "Period must be at least 1").max(12, "Period must be no more than 12").optional(),
-    provider: z.string().min(2, "Provider must be at least 2 characters").max(100, "Provider must be no more than 100 characters").optional(),
-    duration: z.number().min(1, "Duration must be at least 1").max(1000, "Duration must be no more than 1000").optional(),
-    language: z.string().min(2, "Language must be at least 2 characters").max(50, "Language must be no more than 50 characters").optional(),
+    contact_id: z.number().min(1, "Contact ID must be at least 1").optional(),
     level: z.string().min(1, "Level must be at least 1 character").max(50, "Level must be no more than 50 characters").optional(),
-    description: z.string().min(10, "Description must be at least 10 characters").max(1000, "Description must be no more than 1000 characters").optional(),
-    information: z.string().min(10, "Information must be at least 10 characters").max(2000, "Information must be no more than 2000 characters").optional()
+    learningoutcomes: z.string().min(10, "Learning outcomes must be at least 10 characters").max(3000, "Learning outcomes must be no more than 3000 characters").optional()
 });
 
 export const idParamSchema = z.object({

@@ -146,15 +146,14 @@ describe('User Use Cases', () => {
         {
           id: 'module1',
           name: 'Module 1',
-          location: 'Campus A',
-          period: 1,
-          provider: 'University X',
-          duration: 8,
-          language: 'English',
-          level: 'Bachelor',
+          shortdescription: 'Short description',
           description: 'Description',
-          information: 'Info',
-          createdAt: new Date(),
+          content: 'Content',
+          studycredit: 5,
+          location: 'Campus A',
+          contact_id: 1,
+          level: 'Bachelor',
+          learningoutcomes: 'Outcomes',
         },
       ];
 
@@ -199,15 +198,14 @@ describe('User Use Cases', () => {
       const module: Module = {
         id: 'module123',
         name: 'Module',
-        location: 'Campus A',
-        period: 1,
-        provider: 'University X',
-        duration: 8,
-        language: 'English',
-        level: 'Bachelor',
+        shortdescription: 'Short description',
         description: 'Description',
-        information: 'Info',
-        createdAt: new Date(),
+        content: 'Content',
+        studycredit: 5,
+        location: 'Campus A',
+        contact_id: 1,
+        level: 'Bachelor',
+        learningoutcomes: 'Outcomes',
       };
 
       vi.mocked(mockUserRepo.findById).mockResolvedValue(user);

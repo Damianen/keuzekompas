@@ -93,7 +93,7 @@ export function ModuleDetailPage() {
                             <div>
                                 <CardTitle className="text-3xl">{module.name}</CardTitle>
                                 <CardDescription className="text-lg mt-2">
-                                    {module.provider} • {module.level}
+                                    {module.level} • {module.studycredit} EC
                                 </CardDescription>
                             </div>
                             {user && (
@@ -107,33 +107,39 @@ export function ModuleDetailPage() {
                         </div>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             <div>
                                 <p className="text-sm font-medium text-gray-500">Locatie</p>
                                 <p className="text-base">{module.location}</p>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-500">Duur</p>
-                                <p className="text-base">{module.duration} weken</p>
+                                <p className="text-sm font-medium text-gray-500">Studiepunten</p>
+                                <p className="text-base">{module.studycredit} EC</p>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-500">Taal</p>
-                                <p className="text-base">{module.language}</p>
+                                <p className="text-sm font-medium text-gray-500">Niveau</p>
+                                <p className="text-base">{module.level}</p>
                             </div>
-                            <div>
-                                <p className="text-sm font-medium text-gray-500">Periode</p>
-                                <p className="text-base">Periode {module.period}</p>
-                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Korte Beschrijving</h3>
+                            <p className="text-gray-700 dark:text-gray-300">{module.shortdescription}</p>
                         </div>
 
                         <div>
                             <h3 className="text-lg font-semibold mb-2">Beschrijving</h3>
-                            <p className="text-gray-700 dark:text-gray-300">{module.description}</p>
+                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{module.description}</p>
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-semibold mb-2">Aanvullende Informatie</h3>
-                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{module.information}</p>
+                            <h3 className="text-lg font-semibold mb-2">Inhoud</h3>
+                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{module.content}</p>
+                        </div>
+
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Leeruitkomsten</h3>
+                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{module.learningoutcomes}</p>
                         </div>
 
                         {user?.role === 2 && (

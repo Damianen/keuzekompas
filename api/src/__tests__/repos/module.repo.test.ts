@@ -13,15 +13,14 @@ describe('ModuleRepo', () => {
   it('should create a new module', async () => {
     const module: Module = {
       name: 'Advanced Programming',
-      location: 'Campus A',
-      period: 1,
-      provider: 'University X',
-      duration: 8,
-      language: 'English',
-      level: 'Bachelor',
+      shortdescription: 'A course on advanced programming',
       description: 'Learn advanced programming concepts',
-      information: 'Additional information',
-      createdAt: new Date(),
+      content: 'Topics include design patterns, algorithms, etc.',
+      studycredit: 5,
+      location: 'Campus A',
+      contact_id: 1,
+      level: 'Bachelor',
+      learningoutcomes: 'Students will learn advanced concepts',
     };
 
     const id = await moduleRepo.upsert(module);
@@ -33,15 +32,14 @@ describe('ModuleRepo', () => {
   it('should find module by id', async () => {
     const module: Module = {
       name: 'Data Structures',
-      location: 'Campus B',
-      period: 2,
-      provider: 'University Y',
-      duration: 10,
-      language: 'Dutch',
-      level: 'Master',
+      shortdescription: 'A course on data structures',
       description: 'Study data structures',
-      information: 'Course details',
-      createdAt: new Date(),
+      content: 'Topics include arrays, trees, graphs',
+      studycredit: 6,
+      location: 'Campus B',
+      contact_id: 2,
+      level: 'Master',
+      learningoutcomes: 'Students will understand data structures',
     };
 
     const id = await moduleRepo.upsert(module);
@@ -49,7 +47,7 @@ describe('ModuleRepo', () => {
 
     expect(foundModule).toBeDefined();
     expect(foundModule?.name).toBe(module.name);
-    expect(foundModule?.provider).toBe(module.provider);
+    expect(foundModule?.studycredit).toBe(module.studycredit);
     expect(foundModule?.level).toBe(module.level);
   });
 
@@ -61,15 +59,14 @@ describe('ModuleRepo', () => {
   it('should get module by id', async () => {
     const module: Module = {
       name: 'Algorithms',
-      location: 'Online',
-      period: 3,
-      provider: 'University Z',
-      duration: 12,
-      language: 'English',
-      level: 'Bachelor',
+      shortdescription: 'A course on algorithms',
       description: 'Study algorithms',
-      information: 'Online course',
-      createdAt: new Date(),
+      content: 'Topics include sorting, searching',
+      studycredit: 5,
+      location: 'Online',
+      contact_id: 3,
+      level: 'Bachelor',
+      learningoutcomes: 'Students will master algorithms',
     };
 
     const id = await moduleRepo.upsert(module);
@@ -88,28 +85,26 @@ describe('ModuleRepo', () => {
   it('should list all modules', async () => {
     const module1: Module = {
       name: 'Module 1',
-      location: 'Campus A',
-      period: 1,
-      provider: 'University X',
-      duration: 8,
-      language: 'English',
-      level: 'Bachelor',
+      shortdescription: 'Short description 1',
       description: 'Description 1',
-      information: 'Info 1',
-      createdAt: new Date(),
+      content: 'Content 1',
+      studycredit: 5,
+      location: 'Campus A',
+      contact_id: 1,
+      level: 'Bachelor',
+      learningoutcomes: 'Outcomes 1',
     };
 
     const module2: Module = {
       name: 'Module 2',
-      location: 'Campus B',
-      period: 2,
-      provider: 'University Y',
-      duration: 10,
-      language: 'Dutch',
-      level: 'Master',
+      shortdescription: 'Short description 2',
       description: 'Description 2',
-      information: 'Info 2',
-      createdAt: new Date(),
+      content: 'Content 2',
+      studycredit: 6,
+      location: 'Campus B',
+      contact_id: 2,
+      level: 'Master',
+      learningoutcomes: 'Outcomes 2',
     };
 
     await moduleRepo.upsert(module1);
@@ -125,15 +120,14 @@ describe('ModuleRepo', () => {
   it('should update existing module', async () => {
     const module: Module = {
       name: 'Original Name',
-      location: 'Campus A',
-      period: 1,
-      provider: 'University X',
-      duration: 8,
-      language: 'English',
-      level: 'Bachelor',
+      shortdescription: 'Original short description',
       description: 'Original description',
-      information: 'Original info',
-      createdAt: new Date(),
+      content: 'Original content',
+      studycredit: 5,
+      location: 'Campus A',
+      contact_id: 1,
+      level: 'Bachelor',
+      learningoutcomes: 'Original outcomes',
     };
 
     const id = await moduleRepo.upsert(module);
@@ -156,15 +150,14 @@ describe('ModuleRepo', () => {
   it('should delete module', async () => {
     const module: Module = {
       name: 'To Delete',
-      location: 'Campus C',
-      period: 1,
-      provider: 'University X',
-      duration: 8,
-      language: 'English',
-      level: 'Bachelor',
+      shortdescription: 'Will be deleted',
       description: 'Will be deleted',
-      information: 'Delete me',
-      createdAt: new Date(),
+      content: 'Delete me',
+      studycredit: 5,
+      location: 'Campus C',
+      contact_id: 1,
+      level: 'Bachelor',
+      learningoutcomes: 'None',
     };
 
     const id = await moduleRepo.upsert(module);

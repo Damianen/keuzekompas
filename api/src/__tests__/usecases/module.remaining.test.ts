@@ -23,15 +23,14 @@ describe('Module Additional Use Cases', () => {
       const module: Module = {
         id: 'module123',
         name: 'Advanced Programming',
-        location: 'Campus A',
-        period: 1,
-        provider: 'University X',
-        duration: 8,
-        language: 'English',
-        level: 'Bachelor',
+        shortdescription: 'A course on advanced programming',
         description: 'Learn advanced programming',
-        information: 'Additional info',
-        createdAt: new Date(),
+        content: 'Topics include design patterns',
+        studycredit: 5,
+        location: 'Campus A',
+        contact_id: 1,
+        level: 'Bachelor',
+        learningoutcomes: 'Students will learn advanced concepts',
       };
 
       vi.mocked(mockModuleRepo.getById).mockResolvedValue(module);

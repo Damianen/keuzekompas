@@ -23,8 +23,7 @@ export class ModuleController {
             const body: CreateModuleDto = await c.req.json();
 
             const moduleData = {
-                ...body,
-                createdAt: new Date()
+                ...body
             };
 
             const result = await this.moduleService.create.execute(moduleData);
@@ -59,15 +58,14 @@ export class ModuleController {
             const moduleResponse: ModuleResponseDto = {
                 id: module.id!,
                 name: module.name,
-                location: module.location,
-                period: module.period,
-                provider: module.provider,
-                duration: module.duration,
-                language: module.language,
-                level: module.level,
+                shortdescription: module.shortdescription,
                 description: module.description,
-                information: module.information,
-                createdAt: module.createdAt
+                content: module.content,
+                studycredit: module.studycredit,
+                location: module.location,
+                contact_id: module.contact_id,
+                level: module.level,
+                learningoutcomes: module.learningoutcomes
             };
 
             return ResSuccess(c, moduleResponse);
@@ -88,15 +86,14 @@ export class ModuleController {
             const modules: ModuleResponseDto[] = result.value.map(module => ({
                 id: module.id!,
                 name: module.name,
-                location: module.location,
-                period: module.period,
-                provider: module.provider,
-                duration: module.duration,
-                language: module.language,
-                level: module.level,
+                shortdescription: module.shortdescription,
                 description: module.description,
-                information: module.information,
-                createdAt: module.createdAt
+                content: module.content,
+                studycredit: module.studycredit,
+                location: module.location,
+                contact_id: module.contact_id,
+                level: module.level,
+                learningoutcomes: module.learningoutcomes
             }));
 
             const moduleList: ModuleListDto = {
@@ -174,14 +171,13 @@ export class ModuleController {
             let prompt = `You are a helpful assistant answering questions about university modules. Keep your answers short, simple, and direct. Only provide essential information.\n\n`;
             prompt += `Module Information:\n`;
             prompt += `Name: ${module.name}\n`;
-            prompt += `Provider: ${module.provider}\n`;
             prompt += `Level: ${module.level}\n`;
-            prompt += `Duration: ${module.duration} weeks\n`;
+            prompt += `Study Credits: ${module.studycredit} EC\n`;
             prompt += `Location: ${module.location}\n`;
-            prompt += `Language: ${module.language}\n`;
-            prompt += `Period: ${module.period}\n`;
+            prompt += `Short Description: ${module.shortdescription}\n`;
             prompt += `Description: ${module.description}\n`;
-            prompt += `Additional Information: ${module.information}\n\n`;
+            prompt += `Content: ${module.content}\n`;
+            prompt += `Learning Outcomes: ${module.learningoutcomes}\n\n`;
 
             // Add current question only (no conversation history)
             prompt += `Question: ${question}\n`;
